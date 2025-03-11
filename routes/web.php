@@ -1,35 +1,32 @@
 <?php
 
-use App\Http\Controllers\LineChartController;
 use App\Http\Controllers\ProfileController;
-use App\Livewire\AllUsers;
-use App\Livewire\ContactAdmin;
-use Illuminate\Support\Facades\Route;
-use App\Livewire\Home;
 use App\Livewire\Admin;
-use App\Livewire\Components\CreatePost;
-use App\Livewire\Components\ShowPost;
-use App\Livewire\Peoples;
-use App\Livewire\Profile;
-use App\Livewire\ProfileEdit;
+use App\Livewire\AllUsers;
 use App\Livewire\Channel;
 use App\Livewire\Channels;
+use App\Livewire\Components\CreatePost;
+use App\Livewire\Components\ShowPost;
+use App\Livewire\ContactAdmin;
 use App\Livewire\CreateChannel;
-use App\Livewire\MyChannels;
-use App\Livewire\Notification;
 use App\Livewire\CreateChannelPost;
-use App\Livewire\ShowChannelPost;
-use App\Livewire\SavedPostController;
-use App\Livewire\PostEdit;
+use App\Livewire\CreateSquad;
 use App\Livewire\CreateSquadPost;
+use App\Livewire\Home;
+use App\Livewire\MyChannels;
+use App\Livewire\MySquad;
+use App\Livewire\Notification;
+use App\Livewire\Peoples;
+use App\Livewire\PostEdit;
+use App\Livewire\Profile;
+use App\Livewire\ProfileEdit;
+use App\Livewire\SavedPostController;
+use App\Livewire\ShowChannelPost;
 use App\Livewire\ShowSquadPost;
 use App\Livewire\Squad;
 use App\Livewire\Squads;
-use App\Livewire\CreateSquad;
-use App\Livewire\MySquad;
 use Illuminate\Support\Facades\Auth;
-
-
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,7 +77,6 @@ Route::middleware(['auth', 'verified', 'VerifiedUser'])->group(function () {
     Route::get('/accept-friend/{user:id}', [Peoples::class, 'acceptFriend'])->name('accept-friend');
     Route::get('/reject-friend/{user:username}', [Peoples::class, 'rejectFriend'])->name('reject-friend');
 
-
     // channel post create
     Route::get('/channel/createPost/{page:uuid}', CreateChannelPost::class)->name('channel.create-post');
     Route::post('/channel/createPost/{page:uuid}', [CreateChannelPost::class, 'createPost'])->name('channel.createpost');
@@ -126,6 +122,7 @@ Route::middleware(['auth', 'verified', 'VerifiedUser'])->group(function () {
 
     Route::get('/logout', function () {
         Auth::logout();
+
         return redirect()->route('login');
     })->name('logout');
 });
@@ -151,4 +148,4 @@ Route::get('/', function () {
     return view('welcome');
 })->middleware('check.username');
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

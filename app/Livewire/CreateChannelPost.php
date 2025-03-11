@@ -2,12 +2,12 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
 use App\Models\Post;
 use App\Models\PostMedia;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Livewire\Component;
 
 class CreateChannelPost extends Component
 {
@@ -34,7 +34,7 @@ class CreateChannelPost extends Component
         DB::beginTransaction();
         try {
 
-            $thumbnail = time() . '.' . $request->thumbnail->extension();
+            $thumbnail = time().'.'.$request->thumbnail->extension();
             $path = public_path('images/thumbnails');
             $request->thumbnail->move($path, $thumbnail);
 
@@ -51,7 +51,7 @@ class CreateChannelPost extends Component
             $images = [];
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
-                    $imageName = time() . '_' . $image->getClientOriginalName();
+                    $imageName = time().'_'.$image->getClientOriginalName();
                     $path = public_path('images/posts');
                     $image->move($path, $imageName);
                     $images[] = $imageName;
@@ -60,7 +60,7 @@ class CreateChannelPost extends Component
                     'post_id' => $post->id,
                     'file_type' => 'image',
                     'file' => json_encode($images),
-                    'position' => "general",
+                    'position' => 'general',
                 ]);
             }
             session()->flash('success', 'Post created successfully.');
@@ -71,11 +71,10 @@ class CreateChannelPost extends Component
             throw $e;
         }
 
-
-
         unset($this->title);
         unset($this->content);
         unset($this->thumbnail);
+
         return redirect()->back();
     }
 }

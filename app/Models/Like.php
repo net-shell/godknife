@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Like extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'post_id',
         'user_id',
@@ -16,8 +17,6 @@ class Like extends Model
 
     /**
      * Get the user that owns the Like
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user(): BelongsTo
     {

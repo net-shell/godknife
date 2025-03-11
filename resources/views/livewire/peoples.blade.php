@@ -2,15 +2,23 @@
 @php
     $user = auth()->user();
 
-    $friends = App\Models\Friend::where('user_id', auth()->id())->where('status', 'accepted')->get();
-    $get_friends = App\Models\Friend::where('friend_id', auth()->id())->where('status', 'accepted')->get();
+    $friends = App\Models\Friend::where('user_id', auth()->id())
+        ->where('status', 'accepted')
+        ->get();
+    $get_friends = App\Models\Friend::where('friend_id', auth()->id())
+        ->where('status', 'accepted')
+        ->get();
 
     // $get_request = App\Models\Friend::where('friend_id', auth()->id())->get();
-    $get_request = App\Models\Friend::where('friend_id', auth()->id())->where('status', 'pending')->get();
-    $suggestions = App\Models\User::where('id', '!=', auth()->id())->where('username', '!=', 'snpoc_admin')->get();
+    $get_request = App\Models\Friend::where('friend_id', auth()->id())
+        ->where('status', 'pending')
+        ->get();
+    $suggestions = App\Models\User::where('id', '!=', auth()->id())
+        ->where('username', '!=', 'snpoc_admin')
+        ->get();
 @endphp
-<div class="container px-6 mx-auto grid">
-    <div class="my-4 flex justify-evenly">
+<div class="container grid px-6 mx-auto">
+    <div class="flex my-4 justify-evenly">
         @if (session()->has('friend_request'))
             <script>
                 setTimeout(function() {
@@ -18,8 +26,8 @@
                 }, 5000);
             </script>
             <div
-                class="alert absolute z-10 top-0 right-0 w-auto bg-gray-100 rounded-b-lg border-t-8 border-green-600 px-4 py-4 flex flex-col justify-around shadow-md dark:bg-white text-gray-700 dark:text-gray-700">
-                <div class="flex justify-between items-center">
+                class="absolute top-0 right-0 z-10 flex flex-col justify-around w-auto px-4 py-4 text-gray-700 bg-gray-100 border-t-8 border-green-600 rounded-b-lg shadow-md alert dark:bg-white dark:text-gray-700">
+                <div class="flex items-center justify-between">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                         stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -33,7 +41,7 @@
             @endphp
         @endif
         <button
-            class="friends flex items-center justify-between w-64 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-purple">
+            class="flex items-center justify-between w-64 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg friends active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-purple">
             Friends
             <span class="ml-2" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -45,7 +53,7 @@
             </span>
         </button>
         <button
-            class="request flex items-center justify-between w-64 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-purple">
+            class="flex items-center justify-between w-64 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg request active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-purple">
             Friends Request
             <span class="ml-2" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -57,7 +65,7 @@
             </span>
         </button>
         <button
-            class="suggestions flex items-center justify-between w-64 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-purple">
+            class="flex items-center justify-between w-64 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg suggestions active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-purple">
             Suggestions
             <span class="ml-2" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -70,7 +78,7 @@
         </button>
     </div>
 
-    <div class="m-4 p-4 rounded-lg bg-gray-100 shadow-md dark:bg-gray-700">
+    <div class="p-4 m-4 bg-gray-100 rounded-lg shadow-md dark:bg-gray-700">
 
         <div class="friends_section ">
             <div class="flex items-center justify-between ">
@@ -81,7 +89,7 @@
                     <p class="text-xl font-bold text-gray-700 dark:text-gray-100">No Friends</p>
                 </div>
             @else
-                <div class="mt-4 grid gap-6 my-8 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+                <div class="grid gap-6 my-8 mt-4 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                     @foreach ($friends as $friend)
                         @php
                             $friend = App\Models\User::find($friend->friend_id);
@@ -97,10 +105,10 @@
                                         alt="">
                                 @endif
                             </div>
-                            <div class="flex-1 bg-blue-100 p-6 flex flex-col justify-between dark:bg-gray-800">
+                            <div class="flex flex-col justify-between flex-1 p-6 bg-blue-100 dark:bg-gray-800">
                                 <div class="flex flex-1">
-                                    <img src="{{ 'images/profiles/' . $friend->profile }}" alt="Avatar"
-                                        class="w-12 h-12 rounded-full mr-4">
+                                    <img src="{{ $friend->profile }}" alt="Avatar"
+                                        class="w-12 h-12 mr-4 rounded-full">
                                     <div>
                                         <h2 class="text-sm font-medium text-gray-700 dark:text-gray-200">
                                             {{ $friend->first_name }} {{ $friend->last_name }}
@@ -109,7 +117,7 @@
                                             {{ '@' . $friend->username }}</p>
                                     </div>
                                 </div>
-                                <div class="mt-6 flex justify-between">
+                                <div class="flex justify-between mt-6">
                                     <a href="{{ route('profile.show', $friend->username) }}"
                                         class="flex items-center justify-between w-40 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-purple">
                                         View Profile
@@ -150,10 +158,10 @@
                                         alt="">
                                 @endif
                             </div>
-                            <div class="flex-1 bg-blue-100 p-6 flex flex-col justify-between dark:bg-gray-800">
+                            <div class="flex flex-col justify-between flex-1 p-6 bg-blue-100 dark:bg-gray-800">
                                 <div class="flex flex-1">
-                                    <img src="{{ 'images/profiles/' . $friend->profile }}" alt="Avatar"
-                                        class="w-12 h-12 rounded-full mr-4">
+                                    <img src="{{ $friend->profile }}" alt="Avatar"
+                                        class="w-12 h-12 mr-4 rounded-full">
                                     <div>
                                         <h2 class="text-sm font-medium text-gray-700 dark:text-gray-200">
                                             {{ $friend->first_name }} {{ $friend->last_name }}
@@ -162,7 +170,7 @@
                                             {{ '@' . $friend->username }}</p>
                                     </div>
                                 </div>
-                                <div class="mt-6 flex justify-between">
+                                <div class="flex justify-between mt-6">
                                     <a href="{{ route('profile.show', $friend->username) }}"
                                         class="flex items-center justify-between w-40 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-purple">
                                         View Profile
@@ -201,7 +209,7 @@
                     <p class="text-xl font-bold text-gray-700 dark:text-gray-100">No Friend Request</p>
                 </div>
             @else
-                <div class="mt-4 grid gap-6 my-8 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+                <div class="grid gap-6 my-8 mt-4 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                     @foreach ($get_request as $request)
                         @php
                             $request = App\Models\User::find($request->user_id);
@@ -221,10 +229,10 @@
                                             alt="">
                                     @endif
                                 </div>
-                                <div class="flex-1 bg-blue-100 p-6 flex flex-col justify-between dark:bg-gray-800">
+                                <div class="flex flex-col justify-between flex-1 p-6 bg-blue-100 dark:bg-gray-800">
                                     <div class="flex flex-1">
-                                        <img src="{{ 'images/profiles/' . $request->profile }}" alt="Avatar"
-                                            class="w-12 h-12 rounded-full mr-4">
+                                        <img src="{{ $request->profile }}" alt="Avatar"
+                                            class="w-12 h-12 mr-4 rounded-full">
                                         <div>
                                             <h2 class="text-sm font-medium text-gray-700 dark:text-gray-200">
                                                 {{ $request->first_name }} {{ $request->last_name }}
@@ -287,7 +295,7 @@
                     <p class="text-xl font-bold text-gray-700 dark:text-gray-100">No Suggestions</p>
                 </div>
             @else
-                <div class="mt-4 grid gap-6 my-8 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+                <div class="grid gap-6 my-8 mt-4 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                     @foreach ($suggestions as $suggestion)
                         @if (
                             $get_request->contains('user_id', $suggestion->id) ||
@@ -308,10 +316,10 @@
                                         alt="">
                                 @endif
                             </div>
-                            <div class="flex-1 bg-blue-100 p-6 flex flex-col justify-between dark:bg-gray-800">
+                            <div class="flex flex-col justify-between flex-1 p-6 bg-blue-100 dark:bg-gray-800">
                                 <div class="flex flex-1">
-                                    <img src="{{ 'images/profiles/' . $suggestion->profile }}" alt="Avatar"
-                                        class="w-12 h-12 rounded-full mr-4">
+                                    <img src="{{ $suggestion->profile }}" alt="Avatar"
+                                        class="w-12 h-12 mr-4 rounded-full">
                                     <div>
                                         <h2 class="text-sm font-medium text-gray-700 dark:text-gray-200">
                                             {{ $suggestion->first_name }} {{ $suggestion->last_name }}
@@ -320,7 +328,7 @@
                                             {{ '@' . $suggestion->username }}</p>
                                     </div>
                                 </div>
-                                <div class="mt-6 flex justify-between">
+                                <div class="flex justify-between mt-6">
                                     <a href="{{ route('profile.show', $suggestion->username) }}"
                                         class="flex items-center justify-between w-40 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-purple">
                                         View Profile

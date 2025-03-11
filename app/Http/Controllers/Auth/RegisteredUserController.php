@@ -10,9 +10,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
-use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
@@ -34,14 +34,14 @@ class RegisteredUserController extends Controller
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255', 'unique:' . User::class],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+            'username' => ['required', 'string', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'profile' => ['required', 'image', 'mimes:png,jpeg,jpg,gif', 'max:2048'],
             'gender' => ['required'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $profile = time() . '.' . $request->profile->extension();
+        $profile = time().'.'.$request->profile->extension();
         $path = public_path('images/profiles');
         $request->profile->move($path, $profile);
 

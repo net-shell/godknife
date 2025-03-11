@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Post extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'uuid',
         'user_id',
@@ -26,8 +27,6 @@ class Post extends Model
 
     /**
      * Get the user that owns the Post
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user(): BelongsTo
     {
@@ -36,8 +35,6 @@ class Post extends Model
 
     /**
      * Get the group that owns the Post
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function group(): BelongsTo
     {
@@ -46,8 +43,6 @@ class Post extends Model
 
     /**
      * Get the page that owns the Post
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function page(): BelongsTo
     {

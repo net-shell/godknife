@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Friend extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'user_id',
         'friend_id',
@@ -18,8 +19,6 @@ class Friend extends Model
 
     /**
      * Get the user that owns the Friend
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user(): BelongsTo
     {

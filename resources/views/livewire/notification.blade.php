@@ -14,13 +14,13 @@
         ->get();
 
 @endphp
-<div class="container px-6 mx-auto grid">
+<div class="container grid px-6 mx-auto">
 
-    <div class="flex justify-between items-center mt-4">
+    <div class="flex items-center justify-between mt-4">
         <h1 class="text-2xl font-semibold text-gray-700 dark:text-gray-200">Notifications</h1>
         <div class="flex items-center justify-center gap-6">
             <button
-                class="notRead flex items-center justify-between w-64 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-purple">
+                class="flex items-center justify-between w-64 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg notRead active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-purple">
 
                 <span class="ml-2" aria-hidden="true">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -34,7 +34,7 @@
                 @endif
             </button>
             <button
-                class="read flex items-center justify-between w-64 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-purple">
+                class="flex items-center justify-between w-64 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg read active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-purple">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -48,9 +48,9 @@
     </div>
 
 
-    <div class="mt-4 p-4 rounded-lg bg-gray-100 shadow-md dark:bg-gray-700">
+    <div class="p-4 mt-4 bg-gray-100 rounded-lg shadow-md dark:bg-gray-700">
         <div class="flex justify-center">
-            <div class="notRead_section mt-2 w-1/2 h-144 overflow-y-auto">
+            <div class="w-1/2 mt-2 overflow-y-auto notRead_section h-144">
                 @forelse ($notReadNotifications as $notification)
                     @php
                         $senderName = strtok($notification->message, ' ');
@@ -58,10 +58,10 @@
                     @endphp
                     @if ($notificationFrom !== null)
                         <div
-                            class="w-full flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple">
+                            class="flex items-center justify-between w-full p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple">
                             <a href="{{ url($notification->url) }}" class="flex items-center w-2/3">
-                                <img src="{{ 'images/profiles/' . $notificationFrom->profile }}" alt="Avatar"
-                                    class="w-12 h-12 rounded-full mr-4">
+                                <img src="{{ $notificationFrom->profile }}" alt="Avatar"
+                                    class="w-12 h-12 mr-4 rounded-full">
                                 <p class="text-sm text-black dark:text-white">
                                     <span
                                         class="text-lg font-bold text-black dark:text-white">{{ $notification->type }}</span>
@@ -75,28 +75,28 @@
                 @empty
                     <div class="flex flex-col items-center justify-center h-144">
                         <img src="{{ asset('images/website/zoom.gif') }}" alt="" width="150px">
-                        <div class="text-center mt-6">
+                        <div class="mt-6 text-center">
                             <h1 class="text-2xl font-semibold text-gray-700 dark:text-gray-200">No Notification Found!
                             </h1>
-                            <p class="text-gray-500 dark:text-gray-300 mt-2">There is no notification. Please check back
+                            <p class="mt-2 text-gray-500 dark:text-gray-300">There is no notification. Please check back
                                 later.
                             </p>
                         </div>
                     </div>
                 @endforelse
             </div>
-            <div class="hidden read_section mt-2 w-full h-144 overflow-y-auto">
+            <div class="hidden w-full mt-2 overflow-y-auto read_section h-144">
                 @forelse ($ReadNotifications as $notification)
                     @php
                         $senderName = strtok($notification->message, ' ');
                         $notificationFrom = App\Models\User::where('username', $senderName)->first();
                     @endphp
                     @if ($notificationFrom !== null)
-                        <a class="w-1/2 mx-auto flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
+                        <a class="flex items-center justify-between w-1/2 p-4 mx-auto mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
                             href="{{ url($notification->url) }}">
                             <div class="flex items-center">
-                                <img src="{{ 'images/profiles/' . $notificationFrom->profile }}" alt="Avatar"
-                                    class="w-12 h-12 rounded-full mr-4">
+                                <img src="{{ $notificationFrom->profile }}" alt="Avatar"
+                                    class="w-12 h-12 mr-4 rounded-full">
                                 <p class="text-sm text-black dark:text-white">
                                     <span
                                         class="text-lg font-bold text-black dark:text-white">{{ $notification->type }}</span>
@@ -110,10 +110,10 @@
                 @empty
                     <div class="flex flex-col items-center justify-center h-144">
                         <img src="{{ asset('images/website/zoom.gif') }}" alt="" width="150px">
-                        <div class="text-center mt-6">
+                        <div class="mt-6 text-center">
                             <h1 class="text-2xl font-semibold text-gray-700 dark:text-gray-200">No Notification Found!
                             </h1>
-                            <p class="text-gray-500 dark:text-gray-300 mt-2">There is no notification. Please check back
+                            <p class="mt-2 text-gray-500 dark:text-gray-300">There is no notification. Please check back
                                 later.
                             </p>
                         </div>

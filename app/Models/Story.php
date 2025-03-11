@@ -9,18 +9,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Story extends Model
 {
     use HasFactory;
-    protected $fillable =[
+
+    protected $fillable = [
         'user_id',
         'story',
         'status',
         'likes',
-        'comments'
+        'comments',
     ];
-    
+
     /**
      * Get the user that owns the Story
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user(): BelongsTo
     {

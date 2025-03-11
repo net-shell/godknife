@@ -6,7 +6,7 @@
     }
     $posts = App\Models\Post::where('is_group_post', 0)->latest()->get();
 @endphp
-<div class="container px-6 mx-auto grid">
+<div class="container grid px-6 mx-auto">
     @if ($posts->count() > 0)
         <div class="grid gap-6 my-8 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
             <!-- Card -->
@@ -16,7 +16,7 @@
                         <div class="flex">
                             @if ($post->is_page_post == 1)
                                 <img src="{{ 'images/pages/thumbnails/' . $post->page->thumbnail }}" alt="Avatar"
-                                    class="w-12 h-12 rounded-full mr-4">
+                                    class="w-12 h-12 mr-4 rounded-full">
                                 <div>
                                     <a href="{{ route('channel.show', $post->page->uuid) }}"
                                         class="text-sm font-bold text-gray-700 dark:text-gray-200">
@@ -27,8 +27,8 @@
                                     </p>
                                 </div>
                             @else
-                                <img src="{{ 'images/profiles/' . $post->user->profile }}" alt="Avatar"
-                                    class="w-12 h-12 rounded-full mr-4">
+                                <img src="{{ $post->user->profile }}" alt="Avatar"
+                                    class="w-12 h-12 mr-4 rounded-full">
                                 <div>
                                     <a href="{{ route('profile.show', $post->user->username) }}"
                                         class="text-sm font-bold text-gray-700 dark:text-gray-200">
@@ -80,7 +80,7 @@
                         </div>
 
                     </div>
-                    <div class="mt-4 h-12">
+                    <div class="h-12 mt-4">
                         <h2 class="text-xl font-bold text-gray-700 dark:text-gray-100">
                             {{ $post->title }}</h2>
                     </div>
@@ -91,11 +91,11 @@
                             class="text-center rounded-lg" width="100%" height="200px">
                     </div>
 
-                    <div class="mt-4 flex justify-between h-6">
+                    <div class="flex justify-between h-6 mt-4">
                         <span>
                             @if ($post->likes > 0)
                                 <span
-                                    class="text-xs text-gray-700 dark:text-gray-100 font-bold">{{ $post->likes }}</span>
+                                    class="text-xs font-bold text-gray-700 dark:text-gray-100">{{ $post->likes }}</span>
                                 <span class="text-xs text-gray-600 dark:text-gray-400">Upvotes</span>
                             @endif
                         </span>
@@ -104,7 +104,7 @@
                             <span>
                                 @if ($post->comments > 0)
                                     <span
-                                        class="text-xs text-gray-700 dark:text-gray-100 font-bold">{{ $post->comments }}</span>
+                                        class="text-xs font-bold text-gray-700 dark:text-gray-100">{{ $post->comments }}</span>
                                     <span class="text-xs text-gray-600 dark:text-gray-400">Comments</span>
                                     <span class="text-xs font-bold text-gray-600 dark:text-white">:</span>
                                 @endif
@@ -112,7 +112,7 @@
                             <span>
                                 @if ($post->shares > 0)
                                     <span
-                                        class="text-xs text-gray-700 dark:text-gray-100 font-bold">{{ $post->shares }}</span>
+                                        class="text-xs font-bold text-gray-700 dark:text-gray-100">{{ $post->shares }}</span>
                                     <span class="text-xs text-gray-600 dark:text-gray-400">Shares</span>
                                 @endif
                             </span>
@@ -120,7 +120,7 @@
                     </div>
                     <hr class="mt-2" />
 
-                    <div class="px-4 mt-4 flex justify-between">
+                    <div class="flex justify-between px-4 mt-4">
                         <div class="flex items-center justify-center ">
                             @php
                                 $like = App\Models\Like::where([
@@ -130,7 +130,7 @@
                             @endphp
                             @if ($like)
                                 <a href="{{ route('post.dislike', $post->id, 'dislike') }}"
-                                    class="   text-gray-700 dark:text-gray-100 font-medium py-2 rounded">
+                                    class="py-2 font-medium text-gray-700 rounded  dark:text-gray-100">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="2" stroke="currentColor" class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -139,7 +139,7 @@
                                 </a>
                             @else
                                 <a href="{{ route('post.like', $post->id, 'like') }}"
-                                    class="   text-gray-700 dark:text-gray-100 font-medium py-2 rounded">
+                                    class="py-2 font-medium text-gray-700 rounded  dark:text-gray-100">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="2" stroke="currentColor" class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -151,7 +151,7 @@
                         </div>
                         <div class="flex items-center justify-center ">
                             <a href="{{ route('post.show', $post->uuid) }}" class="flex items-center">
-                                <span class=" text-gray-700 dark:text-gray-100 font-medium py-2 rounded" disabled>
+                                <span class="py-2 font-medium text-gray-700 rounded  dark:text-gray-100" disabled>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -162,7 +162,7 @@
                         </div>
                         <div class="flex items-center justify-center ">
                             <a href="{{ route('share-post', $post->id) }}"
-                                class="  text-gray-700 dark:text-gray-100 font-medium py-2 rounded">
+                                class="py-2 font-medium text-gray-700 rounded  dark:text-gray-100">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -179,9 +179,9 @@
     @else
         <div class="flex flex-col items-center justify-center h-160">
             <img src="{{ asset('images/website/zoom.gif') }}" alt="" width="150px">
-            <div class="text-center mt-6">
+            <div class="mt-6 text-center">
                 <h1 class="text-2xl font-semibold text-gray-700 dark:text-gray-200">No Posts Found</h1>
-                <p class="text-gray-500 dark:text-gray-300 mt-2">There is no posts. Please check back later.</p>
+                <p class="mt-2 text-gray-500 dark:text-gray-300">There is no posts. Please check back later.</p>
             </div>
         </div>
     @endif

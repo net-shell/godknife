@@ -3,10 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,13 +19,13 @@ class DatabaseSeeder extends Seeder
 
         $user = User::create([
             'uuid' => Str::uuid(),
-            'first_name' => "Laziest",
-            'last_name' => "Ant",
-            'username' => "laziestant",
-            'email' => "laziestant@gmail.com",
+            'first_name' => 'Laziest',
+            'last_name' => 'Ant',
+            'username' => 'laziestant',
+            'email' => 'laziestant@gmail.com',
             'profile' => '',
-            'gender' => "male",
-            'password' => Hash::make("password"),
+            'gender' => 'male',
+            'password' => Hash::make('password'),
         ]);
     }
 }

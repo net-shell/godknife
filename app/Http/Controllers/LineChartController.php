@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Post;
-use App\Models\Page;
 use App\Models\Group;
+use App\Models\Page;
+use App\Models\Post;
+use App\Models\User;
 
 class LineChartController extends Controller
 {
@@ -17,7 +16,7 @@ class LineChartController extends Controller
     //     $channels = Page::all();
     //     $squad = Group::all();
     //     $data = [];
-        
+
     //     foreach($users as $user){
     //         $data[] = array(
     //             'name' => $user[],

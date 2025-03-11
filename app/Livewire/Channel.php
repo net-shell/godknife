@@ -3,14 +3,14 @@
 namespace App\Livewire;
 
 use App\Models\Comment;
+use App\Models\Like;
 use App\Models\Notification;
-use Livewire\Component;
 use App\Models\Page;
 use App\Models\PageLike;
 use App\Models\Post;
-use Illuminate\Support\Facades\DB;
-use App\Models\Like;
 use App\Models\Share;
+use Illuminate\Support\Facades\DB;
+use Livewire\Component;
 
 class Channel extends Component
 {
@@ -26,16 +26,16 @@ class Channel extends Component
         try {
             PageLike::create([
                 'page_id' => $id,
-                'user_id' => auth()->id()
+                'user_id' => auth()->id(),
             ]);
             $page->update([
-                'members' => $page->members + 1
+                'members' => $page->members + 1,
             ]);
             Notification::create([
-                "type" => "Follow Channel",
-                "user_id" => $page->user_id,
-                "message" => auth()->user()->username . " followed your channel",
-                "url" => "/channel/" . $page->uuid
+                'type' => 'Follow Channel',
+                'user_id' => $page->user_id,
+                'message' => auth()->user()->username.' followed your channel',
+                'url' => '/channel/'.$page->uuid,
             ]);
             DB::commit();
             session()->flash('success', 'You have successfully followed the channel');
@@ -44,6 +44,7 @@ class Channel extends Component
             session()->flash('error', 'Something went wrong');
             throw $th;
         }
+
         return redirect()->back();
     }
 
@@ -54,7 +55,7 @@ class Channel extends Component
         try {
             PageLike::where('page_id', $id)->where('user_id', auth()->id())->delete();
             $page->update([
-                'members' => $page->members - 1
+                'members' => $page->members - 1,
             ]);
             DB::commit();
             session()->flash('success', 'You have successfully unfollowed the channel');
@@ -63,6 +64,7 @@ class Channel extends Component
             session()->flash('error', 'Something went wrong');
             throw $th;
         }
+
         return redirect()->back();
     }
 
@@ -100,6 +102,7 @@ class Channel extends Component
             session()->flash('error', 'Something went wrong');
             throw $th;
         }
+
         return redirect()->to('/my-channels');
     }
 }

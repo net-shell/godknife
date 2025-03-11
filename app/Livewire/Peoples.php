@@ -5,8 +5,8 @@ namespace App\Livewire;
 use App\Models\Friend;
 use App\Models\Notification;
 use App\Models\User;
-use Livewire\Component;
 use Illuminate\Support\Facades\DB;
+use Livewire\Component;
 
 class Peoples extends Component
 {
@@ -26,18 +26,19 @@ class Peoples extends Component
                 'friend_id' => $id,
             ]);
             Notification::create([
-                "type" => "Friend Request",
-                "user_id" => $id,
-                "message" => auth()->user()->username . " sent you a friend request",
-                "url" => "/friends"
+                'type' => 'Friend Request',
+                'user_id' => $id,
+                'message' => auth()->user()->username.' sent you a friend request',
+                'url' => '/friends',
             ]);
             DB::commit();
-            session()->flash('success', 'Friend request sent to ' . $user->username);
+            session()->flash('success', 'Friend request sent to '.$user->username);
         } catch (\Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Something went wrong');
             throw $e;
         }
+
         return redirect()->back();
     }
 
@@ -52,12 +53,13 @@ class Peoples extends Component
                 'friend_id' => $id,
             ])->first()->delete();
             DB::commit();
-            session()->flash('success', 'Cancle Friend request sent to ' . $user->username);
+            session()->flash('success', 'Cancle Friend request sent to '.$user->username);
         } catch (\Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Something went wrong');
             throw $e;
         }
+
         return redirect()->back();
     }
 
@@ -72,21 +74,22 @@ class Peoples extends Component
                 'friend_id' => auth()->id(),
             ])->first();
             $req->accepted_at = now();
-            $req->status = "accepted";
+            $req->status = 'accepted';
             $req->save();
             Notification::create([
-                "type" => "Friend Request Accepted",
-                "user_id" => $user->id,
-                "message" => auth()->user()->username . " accepted your friend request",
-                "url" => "/friends"
+                'type' => 'Friend Request Accepted',
+                'user_id' => $user->id,
+                'message' => auth()->user()->username.' accepted your friend request',
+                'url' => '/friends',
             ]);
             DB::commit();
-            session()->flash('success', 'Accept Friend request From ' . $user->username);
+            session()->flash('success', 'Accept Friend request From '.$user->username);
         } catch (\Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Something went wrong');
             throw $e;
         }
+
         return redirect()->back();
     }
 
@@ -100,15 +103,16 @@ class Peoples extends Component
                 'user_id' => $id,
                 'friend_id' => auth()->id(),
             ])->first();
-            $req->status = "rejected";
+            $req->status = 'rejected';
             $req->save();
             DB::commit();
-            session()->flash('success', 'Reject Friend request From ' . $user->username);
+            session()->flash('success', 'Reject Friend request From '.$user->username);
         } catch (\Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Something went wrong');
             throw $e;
         }
+
         return redirect()->back();
     }
 
@@ -127,7 +131,8 @@ class Peoples extends Component
             $friendship2->delete();
         }
 
-        session()->flash('success', 'You have successfully unfriend ' . $user->username);
+        session()->flash('success', 'You have successfully unfriend '.$user->username);
+
         return redirect()->back();
     }
 }

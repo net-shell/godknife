@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Notification extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'type',
         'user_id',
@@ -19,8 +20,6 @@ class Notification extends Model
 
     /**
      * Get the user that owns the Notification
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user(): BelongsTo
     {

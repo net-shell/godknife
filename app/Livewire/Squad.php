@@ -2,21 +2,21 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
+use App\Models\Comment;
 use App\Models\Group;
 use App\Models\GroupMember;
+use App\Models\Like;
 use App\Models\Notification;
 use App\Models\Post;
-use Illuminate\Support\Facades\DB;
-use App\Models\Comment;
-use App\Models\Like;
 use App\Models\Share;
+use Illuminate\Support\Facades\DB;
+use Livewire\Component;
 
 class Squad extends Component
 {
     public function render()
     {
-        return view('livewire.squad')->extends('layouts.app');;
+        return view('livewire.squad')->extends('layouts.app');
     }
 
     public function joinSquad($id)
@@ -26,16 +26,16 @@ class Squad extends Component
         try {
             GroupMember::create([
                 'group_id' => $id,
-                'user_id' => auth()->id()
+                'user_id' => auth()->id(),
             ]);
             $group->update([
-                'members' => $group->members + 1
+                'members' => $group->members + 1,
             ]);
             Notification::create([
-                "type" => "Joined Channel",
-                "user_id" => $group->user_id,
-                "message" => auth()->user()->username . " joined your squad",
-                "url" => "/squad/" . $group->uuid
+                'type' => 'Joined Channel',
+                'user_id' => $group->user_id,
+                'message' => auth()->user()->username.' joined your squad',
+                'url' => '/squad/'.$group->uuid,
             ]);
             DB::commit();
             session()->flash('success', 'You have successfully joined the squad');
@@ -44,6 +44,7 @@ class Squad extends Component
             session()->flash('error', 'Something went wrong');
             throw $th;
         }
+
         return redirect()->back();
     }
 
@@ -54,13 +55,13 @@ class Squad extends Component
         try {
             GroupMember::where('group_id', $id)->where('user_id', auth()->id())->delete();
             $group->update([
-                'members' => $group->members - 1
+                'members' => $group->members - 1,
             ]);
             Notification::create([
-                "type" => "Left Channel",
-                "user_id" => $group->user_id,
-                "message" => auth()->user()->username . " left your squad",
-                "url" => "/squad/" . $group->uuid
+                'type' => 'Left Channel',
+                'user_id' => $group->user_id,
+                'message' => auth()->user()->username.' left your squad',
+                'url' => '/squad/'.$group->uuid,
             ]);
             DB::commit();
             session()->flash('success', 'You have successfully left the squad');
@@ -69,6 +70,7 @@ class Squad extends Component
             session()->flash('error', 'Something went wrong');
             throw $th;
         }
+
         return redirect()->back();
     }
 
@@ -106,6 +108,7 @@ class Squad extends Component
             session()->flash('error', 'Something went wrong');
             throw $th;
         }
+
         return redirect()->to('/my-squads');
     }
 }

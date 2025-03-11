@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Comment extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'post_id',
         'user_id',
@@ -18,8 +19,6 @@ class Comment extends Model
 
     /**
      * Get the user that owns the Comment
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user(): BelongsTo
     {
@@ -28,8 +27,6 @@ class Comment extends Model
 
     /**
      * Get the post that owns the Comment
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function post(): BelongsTo
     {

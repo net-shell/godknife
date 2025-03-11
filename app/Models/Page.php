@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Page extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'uuid',
         'user_id',
@@ -25,8 +26,6 @@ class Page extends Model
 
     /**
      * Get the user that owns the Page
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user(): BelongsTo
     {
@@ -35,8 +34,6 @@ class Page extends Model
 
     /**
      * Get all of the posts for the Page
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function posts(): HasMany
     {

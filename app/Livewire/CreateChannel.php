@@ -2,22 +2,29 @@
 
 namespace App\Livewire;
 
+use App\Models\Page;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\DB;
-use App\Models\Page;
-use Illuminate\Support\Str;
 
 class CreateChannel extends Component
 {
     use WithFileUploads;
+
     public $name;
+
     public $description;
+
     public $type;
+
     public $icon;
+
     public $thumbnail;
+
     public $location;
+
     public function render()
     {
         return view('livewire.create-channel')->extends('layouts.app');
@@ -34,15 +41,13 @@ class CreateChannel extends Component
             'location' => ['required', 'min:3', 'max:255'],
         ]);
 
-
-
         DB::beginTransaction();
         try {
-            $icon = time() . '.' . $request->icon->extension();
+            $icon = time().'.'.$request->icon->extension();
             $path = public_path('images/pages');
             $request->icon->move($path, $icon);
 
-            $thumbnail = time() . '.' . $request->thumbnail->extension();
+            $thumbnail = time().'.'.$request->thumbnail->extension();
             $path = public_path('images/pages/thumbnails');
             $request->thumbnail->move($path, $thumbnail);
 
@@ -63,6 +68,7 @@ class CreateChannel extends Component
             session()->flash('error', 'Something went wrong');
             throw $e;
         }
+
         return redirect()->route('my-channels');
     }
 }

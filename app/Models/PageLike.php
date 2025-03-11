@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class PageLike extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'page_id',
         'user_id',
@@ -16,8 +17,6 @@ class PageLike extends Model
 
     /**
      * Get the user that owns the PageLike
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user(): BelongsTo
     {
@@ -26,8 +25,6 @@ class PageLike extends Model
 
     /**
      * Get the page that owns the PageLike
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function page(): BelongsTo
     {

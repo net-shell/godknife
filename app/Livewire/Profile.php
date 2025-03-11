@@ -16,6 +16,7 @@ class Profile extends Component
     {
         $user = auth()->user();
         User::where('uuid', $user->uuid)->delete();
+
         return redirect()->route('home');
     }
 }

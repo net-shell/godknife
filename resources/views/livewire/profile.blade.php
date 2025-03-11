@@ -11,25 +11,17 @@
         ->sortByDesc('created_at');
 
     $numOfFriends = 0;
-    $numOfFriends += App\Models\Friend::where('user_id', $user->id)
-        ->where('status', 'accepted')
-        ->count();
-    $numOfFriends += App\Models\Friend::where('friend_id', $user->id)
-        ->where('status', 'accepted')
-        ->count();
+    $numOfFriends += App\Models\Friend::where('user_id', $user->id)->where('status', 'accepted')->count();
+    $numOfFriends += App\Models\Friend::where('friend_id', $user->id)->where('status', 'accepted')->count();
     $user->numOfFriends = $numOfFriends;
 
-    $friends = App\Models\Friend::where('user_id', $user->id)
-        ->where('status', 'accepted')
-        ->get();
-    $get_friends = App\Models\Friend::where('friend_id', $user->id)
-        ->where('status', 'accepted')
-        ->get();
+    $friends = App\Models\Friend::where('user_id', $user->id)->where('status', 'accepted')->get();
+    $get_friends = App\Models\Friend::where('friend_id', $user->id)->where('status', 'accepted')->get();
 
     $numOfComments = App\Models\Comment::where('user_id', $user->id)->count();
 @endphp
 
-<main class="profile-page h-full overflow-y-auto">
+<main class="h-full overflow-y-auto profile-page">
     <section class="relative block h-1/2">
         @if ($user->thumbnail)
             <div class="absolute top-0 w-full h-full bg-center bg-cover"
@@ -38,9 +30,9 @@
                 <div class="absolute top-0 w-full h-full bg-center bg-cover"
                     style="background-image: url('https://picsum.photos/id/237/200/300'); background-size:cover; background-repead:no-repead;">
         @endif
-        <span id="blackOverlay" class="w-full h-full absolute opacity-50 bg-black"></span>
+        <span id="blackOverlay" class="absolute w-full h-full bg-black opacity-50"></span>
         </div>
-        <div class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-20"
+        <div class="absolute bottom-0 left-0 right-0 top-auto w-full h-20 overflow-hidden pointer-events-none"
             style="transform: translateZ(0px)">
             <svg class="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
                 version="1.1" viewBox="0 0 2560 100" x="0" y="0">
@@ -49,38 +41,38 @@
         </div>
     </section>
     <section class="relative py-16 bg-gray-200">
-        <div class="container mx-auto px-4">
+        <div class="container px-4 mx-auto">
             <div
-                class="relative flex flex-col min-w-0 break-words bg-teal-100 w-full mb-6 shadow-xl rounded-lg -mt-48 dark:bg-gray-800 dark:text-gray-200">
+                class="relative flex flex-col w-full min-w-0 mb-6 -mt-48 break-words bg-teal-100 rounded-lg shadow-xl dark:bg-gray-800 dark:text-gray-200">
                 <div class="px-6">
                     <div class="flex flex-wrap justify-center">
-                        <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
+                        <div class="flex justify-center w-full px-4 lg:w-3/12 lg:order-2">
                             <div class="relative">
-                                <img src="{{ asset('images/profiles/' . $user->profile) }}"
-                                    class="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-micro max-h-micro"
+                                <img src="{{ $user->profile }}"
+                                    class="absolute -m-16 -ml-20 align-middle border-none rounded-full shadow-xl lg:-ml-16 max-w-micro max-h-micro"
                                     alt="" width="150px" height="150px">
                             </div>
                         </div>
-                        <div class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
-                            <div class="py-6 px-3 sm:mt-0">
+                        <div class="w-full px-4 lg:w-4/12 lg:order-3 lg:text-right lg:self-center">
+                            <div class="px-3 py-6 sm:mt-0">
                                 @if ($user->username == auth()->user()->username)
                                     <a href="{{ route('profile-edit', $user->username, 'edit') }}"
-                                        class="bg-blue-500 active:bg-blue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                                        class="px-4 py-2 mb-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-blue-500 rounded shadow outline-none active:bg-blue-600 hover:shadow-md focus:outline-none sm:mr-2"
                                         type="button">
                                         Edit
                                     </a>
                                 @else
                                     <a href="{{ url('envoy', $user->id) }}"
-                                        class="bg-blue-500 active:bg-blue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                                        class="px-4 py-2 mb-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-blue-500 rounded shadow outline-none active:bg-blue-600 hover:shadow-md focus:outline-none sm:mr-2"
                                         type="button">
                                         Connect
                                     </a>
                                 @endif
                             </div>
                         </div>
-                        <div class="w-full lg:w-4/12 px-4 lg:order-1">
-                            <div class="mt-2 flex flex-col justify-center text-center py-4 lg:pt-4 pt-8">
-                                <h3 class="text-3xl font-semibold leading-normal text-gray-700 mb-2 dark:text-gray-200">
+                        <div class="w-full px-4 lg:w-4/12 lg:order-1">
+                            <div class="flex flex-col justify-center py-4 pt-8 mt-2 text-center lg:pt-4">
+                                <h3 class="mb-2 text-3xl font-semibold leading-normal text-gray-700 dark:text-gray-200">
                                     {{ $user->first_name }} {{ $user->last_name }}
                                 </h3>
                                 <div>
@@ -115,9 +107,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-10 py-6 border-t border-black dark:border-white text-center">
+                    <div class="py-6 mt-10 text-center border-t border-black dark:border-white">
                         <div class="flex flex-wrap justify-center">
-                            <div class="w-full lg:w-9/12 px-4">
+                            <div class="w-full px-4 lg:w-9/12">
                                 @if ($user->description)
                                     <p class="text-lg font-bold leading-relaxed text-gray-700 dark:text-gray-200">
                                         {{ $user->description }}
@@ -132,9 +124,9 @@
         @if (!($user->username == 'snpoc_admin'))
             <div class="container px-2">
                 <div class="flex flex-wrap">
-                    <div class="w-full  lg:w-40 p-4">
+                    <div class="w-full p-4 lg:w-40">
                         <div
-                            class="h-106 w-full mx-auto bg-gray-100 rounded-lg shadow-md overflow-hidden dark:bg-gray-800 dark:text-gray-200">
+                            class="w-full mx-auto overflow-hidden bg-gray-100 rounded-lg shadow-md h-106 dark:bg-gray-800 dark:text-gray-200">
                             <div class="p-6 text-2xl font-semibold">Friends ({{ $user->numOfFriends }})</div>
                             <div class="grid grid-cols-3 gap-6 p-6 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3">
                                 @foreach ($friends as $friend)
@@ -142,9 +134,9 @@
                                         $friend = App\Models\User::find($friend->friend_id);
                                     @endphp
                                     <div
-                                        class="rounded-lg overflow-hidden max-h-sm border border-black dark:border-white">
-                                        <img class="h-24 min-w-full object-cover"
-                                            src="{{ asset('images/profiles/' . $friend->profile) }}" alt="">
+                                        class="overflow-hidden border border-black rounded-lg max-h-sm dark:border-white">
+                                        <img class="object-cover h-24 min-w-full" src="{{ $friend->profile }}"
+                                            alt="">
                                         <div class="py-2 text-center">
                                             <a href="{{ route('profile.show', $friend->username) }}"
                                                 class="text-xs font-semibold">{{ $friend->username }}</a>
@@ -156,9 +148,9 @@
                                         $friend = App\Models\User::find($friend->user_id);
                                     @endphp
                                     <div
-                                        class="rounded-lg overflow-hidden max-h-sm border border-black dark:border-white">
-                                        <img class="h-24 min-w-full object-cover"
-                                            src="{{ asset('images/profiles/' . $friend->profile) }}" alt="">
+                                        class="overflow-hidden border border-black rounded-lg max-h-sm dark:border-white">
+                                        <img class="object-cover h-24 min-w-full" src="{{ $friend->profile }}"
+                                            alt="">
                                         <div class="py-2 text-center">
                                             <a href="{{ route('profile.show', $friend->username) }}"
                                                 class="text-xs font-semibold">{{ $friend->username }}</a>
@@ -168,14 +160,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-full md:flex-cols lg:w-60 p-4">
+                    <div class="w-full p-4 md:flex-cols lg:w-60">
                         <div
-                            class="h-106 w-full mx-auto bg-gray-100 rounded-lg shadow-md overflow-hidden dark:bg-gray-800 dark:text-gray-200">
+                            class="w-full mx-auto overflow-hidden bg-gray-100 rounded-lg shadow-md h-106 dark:bg-gray-800 dark:text-gray-200">
                             <div class="flex justify-between p-6 text-2xl font-semibold">
                                 <p>About</p>
                             </div>
                             <div
-                                class="p-6 m-6 bg-blue-100 rounded-lg shadow-md overflow-hidden dark:bg-gray-700 dark:text-gray-200">
+                                class="p-6 m-6 overflow-hidden bg-blue-100 rounded-lg shadow-md dark:bg-gray-700 dark:text-gray-200">
                                 @if ($user->school)
                                     <div class="flex mb-2">
                                         <span>
@@ -253,7 +245,7 @@
                                             @if ($user->relationship != 'single')
                                                 with
                                                 <a href="{{ route('profile.show', $user->partner) }}"
-                                                    class="lowercase font-bold text-gray-600 dark:text-white">
+                                                    class="font-bold text-gray-600 lowercase dark:text-white">
                                                     {{ $user->partner }}</a>
                                             @endif
                                         </p>
@@ -282,7 +274,7 @@
         @endif
 
     </section>
-    <section class="container -mt-8 mb-4 px-6 mx-auto grid">
+    <section class="container grid px-6 mx-auto mb-4 -mt-8">
         @if ($posts->count() > 0)
             <div class="grid gap-6 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                 <!-- Card -->
@@ -293,8 +285,7 @@
                     <div class="flex flex-col p-4 bg-gray-100 rounded-lg shadow-xs dark:bg-gray-800">
                         <div class="flex items-center justify-between">
                             <div class="flex">
-                                <img src="{{ asset('images/profiles/' . $user->profile) }}" alt="Avatar"
-                                    class="w-12 h-12 rounded-full mr-4">
+                                <img src="{{ $user->profile }}" alt="Avatar" class="w-12 h-12 mr-4 rounded-full">
                                 <div>
                                     <h2 class="text-sm font-medium text-gray-700 dark:text-gray-200">
                                         {{ $user->first_name }} {{ $user->last_name }}
@@ -311,7 +302,7 @@
                             </div>
                         </div>
 
-                        <div class="mt-4 h-12">
+                        <div class="h-12 mt-4">
                             <h2 class="text-xl font-bold text-gray-700 dark:text-gray-100">{{ $post->title }}</h2>
                         </div>
                         <div class="mt-4">
@@ -320,11 +311,11 @@
                             <img src="{{ asset('images/thumbnails/' . $post->thumbnail) }}" alt="Post Image"
                                 class="text-center rounded-lg" width="100%" height="200px">
                         </div>
-                        <div class="mt-4 flex justify-between h-6">
+                        <div class="flex justify-between h-6 mt-4">
                             <span>
                                 @if ($post->likes > 0)
                                     <span
-                                        class="text-xs text-gray-700 dark:text-gray-100 font-bold">{{ $post->likes }}</span>
+                                        class="text-xs font-bold text-gray-700 dark:text-gray-100">{{ $post->likes }}</span>
                                     <span class="text-xs text-gray-600 dark:text-gray-400">Upvotes</span>
                                 @endif
                             </span>
@@ -333,7 +324,7 @@
                                 <span>
                                     @if ($post->comments > 0)
                                         <span
-                                            class="text-xs text-gray-700 dark:text-gray-100 font-bold">{{ $post->comments }}</span>
+                                            class="text-xs font-bold text-gray-700 dark:text-gray-100">{{ $post->comments }}</span>
                                         <span class="text-xs text-gray-600 dark:text-gray-400">Comments</span>
                                         <span class="text-xs font-bold text-gray-600 dark:text-white">:</span>
                                     @endif
@@ -341,7 +332,7 @@
                                 <span>
                                     @if ($post->shares > 0)
                                         <span
-                                            class="text-xs text-gray-700 dark:text-gray-100 font-bold">{{ $post->shares }}</span>
+                                            class="text-xs font-bold text-gray-700 dark:text-gray-100">{{ $post->shares }}</span>
                                         <span class="text-xs text-gray-600 dark:text-gray-400">Shares</span>
                                     @endif
                                 </span>
@@ -349,7 +340,7 @@
                         </div>
                         <hr class="mt-2" />
 
-                        <div class="px-4 mt-4 flex justify-between">
+                        <div class="flex justify-between px-4 mt-4">
                             <div class="flex items-center justify-center ">
                                 @php
                                     $like = App\Models\Like::where([
@@ -359,7 +350,7 @@
                                 @endphp
                                 @if ($like)
                                     <a href="{{ route('post.dislike', $post->id, 'dislike') }}"
-                                        class=" hover:bg-gray-800 text-gray-700 dark:text-gray-100 font-medium py-2 rounded">
+                                        class="py-2 font-medium text-gray-700 rounded hover:bg-gray-800 dark:text-gray-100">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="2" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -368,7 +359,7 @@
                                     </a>
                                 @else
                                     <a href="{{ route('post.like', $post->id, 'like') }}"
-                                        class=" hover:bg-gray-800 text-gray-700 dark:text-gray-100 font-medium py-2 rounded">
+                                        class="py-2 font-medium text-gray-700 rounded hover:bg-gray-800 dark:text-gray-100">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="2" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -381,7 +372,7 @@
                             <div class="flex items-center justify-center ">
                                 <a href="{{ route('post.show', $post->uuid) }}"class="flex items-center">
                                     <button
-                                        class="hover:bg-gray-800 text-gray-700 dark:text-gray-100 font-medium py-2 rounded"
+                                        class="py-2 font-medium text-gray-700 rounded hover:bg-gray-800 dark:text-gray-100"
                                         disabled>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -393,7 +384,7 @@
                             </div>
                             <div class="flex items-center justify-center ">
                                 <a href="{{ route('share-post', $post->id) }}"
-                                    class="hover:bg-gray-800 text-gray-700 dark:text-gray-100 font-medium py-2 rounded">
+                                    class="py-2 font-medium text-gray-700 rounded hover:bg-gray-800 dark:text-gray-100">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -411,7 +402,7 @@
             <div class="flex items-center justify-center h-32">
                 <div class="text-center">
                     <h1 class="text-2xl font-semibold text-gray-700 dark:text-gray-200">No Posts Found</h1>
-                    <p class="text-gray-500 dark:text-gray-300 mt-2">No posts found. Please check back later.</p>
+                    <p class="mt-2 text-gray-500 dark:text-gray-300">No posts found. Please check back later.</p>
                 </div>
             </div>
         @endif

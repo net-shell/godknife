@@ -13,7 +13,7 @@
         rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('css/tailwind.output.css') }}" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-    <script src="https://cdn.tiny.cloud/1/pi0s05we9fvgs70ikthvx2o4s6h8wd295h4en5cfuztsdgg5/tinymce/6/tinymce.min.js"
+    <script src="https://cdn.tiny.cloud/1/um58igmni57s76quz66y5o5brcsb3lmjd5uldskd84uzvxxi/tinymce/7/tinymce.min.js"
         referrerpolicy="origin"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
@@ -39,10 +39,10 @@
                             }, 5000);
                         </script>
                         <div role="alert"
-                            class="alert w-auto absolute z-10 top-right-5 mb-2 p-2 bg-blue-600 rounded-full items-center text-green-100 leading-none lg:rounded-full flex lg:inline-flex">
+                            class="absolute z-10 flex items-center w-auto p-2 mb-2 leading-none text-green-100 bg-blue-600 rounded-full alert top-right-5 lg:rounded-full lg:inline-flex">
                             <span
-                                class="flex rounded-full bg-blue-500 uppercase px-2 py-1 text-xs font-bold mr-3">SUCCESS</span>
-                            <span class="font-semibold mr-2 text-left flex-auto">{{ session('success') }}</span>
+                                class="flex px-2 py-1 mr-3 text-xs font-bold uppercase bg-blue-500 rounded-full">SUCCESS</span>
+                            <span class="flex-auto mr-2 font-semibold text-left">{{ session('success') }}</span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
@@ -60,10 +60,10 @@
                             }, 5000);
                         </script>
                         <div role="alert"
-                            class="alert w-auto absolute z-10 top-right-5 mb-2 p-2 bg-red-800 rounded-full items-center text-red-100 leading-none lg:rounded-full flex lg:inline-flex">
+                            class="absolute z-10 flex items-center w-auto p-2 mb-2 leading-none text-red-100 bg-red-800 rounded-full alert top-right-5 lg:rounded-full lg:inline-flex">
                             <span
-                                class="flex rounded-full bg-red-500 uppercase px-2 py-1 text-xs font-bold mr-3">ERROR</span>
-                            <span class="font-semibold mr-2 text-left flex-auto">{{ session('error') }}</span>
+                                class="flex px-2 py-1 mr-3 text-xs font-bold uppercase bg-red-500 rounded-full">ERROR</span>
+                            <span class="flex-auto mr-2 font-semibold text-left">{{ session('error') }}</span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
@@ -86,10 +86,10 @@
                 <main class="h-full overflow-y-auto bg-blue-100 dark:bg-gray-900">
                     @if (auth()->user()->banned_to > now('Asia/Yangon'))
                         <div
-                            class="w-auto absolute z-10 bottom-right-5 mb-2 p-2 bg-red-800 rounded-full items-center text-red-100 leading-none lg:rounded-full flex lg:inline-flex">
-                            <span class="flex rounded-full bg-red-500 uppercase px-2 py-1 text-xs font-bold mr-3">BANNED
+                            class="absolute z-10 flex items-center w-auto p-2 mb-2 leading-none text-red-100 bg-red-800 rounded-full bottom-right-5 lg:rounded-full lg:inline-flex">
+                            <span class="flex px-2 py-1 mr-3 text-xs font-bold uppercase bg-red-500 rounded-full">BANNED
                                 USER</span>
-                            <span class="font-semibold mr-2 text-left flex-auto">Your Account is banned to
+                            <span class="flex-auto mr-2 font-semibold text-left">Your Account is banned to
                                 {{ auth()->user()->banned_to }}</span>
                         </div>
                     @endif
@@ -100,10 +100,10 @@
                             }, 5000);
                         </script>
                         <div role="alert"
-                            class="alert w-auto absolute z-10 top-right-5 mb-2 p-2 bg-blue-600 rounded-full items-center text-green-100 leading-none lg:rounded-full flex lg:inline-flex">
+                            class="absolute z-10 flex items-center w-auto p-2 mb-2 leading-none text-green-100 bg-blue-600 rounded-full alert top-right-5 lg:rounded-full lg:inline-flex">
                             <span
-                                class="flex rounded-full bg-blue-500 uppercase px-2 py-1 text-xs font-bold mr-3">SUCCESS</span>
-                            <span class="font-semibold mr-2 text-left flex-auto">{{ session('success') }}</span>
+                                class="flex px-2 py-1 mr-3 text-xs font-bold uppercase bg-blue-500 rounded-full">SUCCESS</span>
+                            <span class="flex-auto mr-2 font-semibold text-left">{{ session('success') }}</span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
@@ -121,10 +121,10 @@
                             }, 5000);
                         </script>
                         <div role="alert"
-                            class="alert w-auto absolute z-10 top-right-5 mb-2 p-2 bg-red-800 rounded-full items-center text-red-100 leading-none lg:rounded-full flex lg:inline-flex">
+                            class="absolute z-10 flex items-center w-auto p-2 mb-2 leading-none text-red-100 bg-red-800 rounded-full alert top-right-5 lg:rounded-full lg:inline-flex">
                             <span
-                                class="flex rounded-full bg-red-500 uppercase px-2 py-1 text-xs font-bold mr-3">ERROR</span>
-                            <span class="font-semibold mr-2 text-left flex-auto">{{ session('error') }}</span>
+                                class="flex px-2 py-1 mr-3 text-xs font-bold uppercase bg-red-500 rounded-full">ERROR</span>
+                            <span class="flex-auto mr-2 font-semibold text-left">{{ session('error') }}</span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
@@ -142,7 +142,7 @@
         <div class="flex items-center justify-center h-screen">
             <div class="flex flex-col items-center justify-center">
                 <img src="{{ asset('images/website/security.gif') }}" alt="security" class="w-1/2" />
-                <h1 class="text-3xl font-bold mt-2 text-center">We are locked your account. Please contact to
+                <h1 class="mt-2 text-3xl font-bold text-center">We are locked your account. Please contact to
                     admin.
                 </h1>
                 <div class="flex gap-6">

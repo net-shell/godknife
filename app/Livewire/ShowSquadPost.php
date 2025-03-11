@@ -8,6 +8,6 @@ class ShowSquadPost extends Component
 {
     public function render()
     {
-        return view('livewire.show-squad-post')->extends('layouts.app');;
+        return view('livewire.show-squad-post')->extends('layouts.app');
     }
 }

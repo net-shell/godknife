@@ -12,7 +12,7 @@
         return $line++;
     }
 @endphp
-<div class="container px-6 mx-auto grid">
+<div class="container grid px-6 mx-auto">
     <div class="grid gap-6 my-8 md:grid-cols-2 xl:grid-cols-4">
         <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
             <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
@@ -141,8 +141,7 @@
                                     <!-- Avatar with inset shadow -->
                                     <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                                         <img class="object-cover w-full h-full rounded-full"
-                                            src="{{ asset('images/profiles/' . $user->profile) }}" alt=""
-                                            loading="lazy" />
+                                            src="{{ asset($user->profile) }}" alt="" loading="lazy" />
                                         <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true">
                                         </div>
                                     </div>

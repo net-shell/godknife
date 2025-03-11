@@ -22,8 +22,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('profile')->nullable();
-            $table->enum('gender', ['male', 'female', 'custom']);
-            $table->enum('relationship', ['single', 'relationship', 'married', 'engage']);
+            $table->string('gender')->nullable();
+            $table->string('relationship')->nullable();
             $table->string('partner')->nullable();
             $table->string('school')->nullable();
             $table->string('college')->nullable();

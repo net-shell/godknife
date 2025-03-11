@@ -2,15 +2,15 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
+use App\Models\Group;
+use App\Models\Notification;
 use App\Models\Post;
 use App\Models\PostMedia;
-use App\Models\Group;
 use App\Models\User;
-use App\Models\Notification;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Livewire\Component;
 
 class CreateSquadPost extends Component
 {
@@ -40,7 +40,7 @@ class CreateSquadPost extends Component
         DB::beginTransaction();
         try {
 
-            $thumbnail = time() . '.' . $request->thumbnail->extension();
+            $thumbnail = time().'.'.$request->thumbnail->extension();
             $path = public_path('images/thumbnails');
             $request->thumbnail->move($path, $thumbnail);
 
@@ -57,7 +57,7 @@ class CreateSquadPost extends Component
             $images = [];
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
-                    $imageName = time() . '_' . $image->getClientOriginalName();
+                    $imageName = time().'_'.$image->getClientOriginalName();
                     $path = public_path('images/posts');
                     $image->move($path, $imageName);
                     $images[] = $imageName;
@@ -66,15 +66,15 @@ class CreateSquadPost extends Component
                     'post_id' => $post->id,
                     'file_type' => 'image',
                     'file' => json_encode($images),
-                    'position' => "general",
+                    'position' => 'general',
                 ]);
             }
 
             Notification::create([
-                "type" => "New Post",
-                "user_id" => $user->id,
-                "message" => auth()->user()->username . " created a new post in your squad",
-                "url" => "/squad/" . $group->uuid
+                'type' => 'New Post',
+                'user_id' => $user->id,
+                'message' => auth()->user()->username.' created a new post in your squad',
+                'url' => '/squad/'.$group->uuid,
             ]);
             session()->flash('success', 'Post created successfully.');
             DB::commit();
@@ -84,11 +84,10 @@ class CreateSquadPost extends Component
             throw $e;
         }
 
-
-
         unset($this->title);
         unset($this->content);
         unset($this->thumbnail);
+
         return redirect()->back();
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class PostMedia extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'post_id',
         'file_type',
@@ -18,8 +19,6 @@ class PostMedia extends Model
 
     /**
      * Get the user that owns the Story
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function post(): BelongsTo
     {

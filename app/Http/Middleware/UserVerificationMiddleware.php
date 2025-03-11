@@ -18,6 +18,7 @@ class UserVerificationMiddleware
         if ($request->user()->email != null && $request->user()->email_verified_at == null) {
             return redirect()->route('verification.notice');
         }
+
         return $next($request);
     }
 }

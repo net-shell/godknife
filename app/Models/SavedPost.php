@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class SavedPost extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'user_id',
         'post_id',
@@ -16,8 +17,6 @@ class SavedPost extends Model
 
     /**
      * Get the user that owns the Story
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user(): BelongsTo
     {

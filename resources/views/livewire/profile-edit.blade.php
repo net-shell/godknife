@@ -6,36 +6,36 @@
 <div class="flex flex-col items-center">
     @foreach ($errors->all() as $error)
         <div role="alert"
-            class="w-full mb-2 p-2 bg-red-800 rounded-full items-center text-red-100 leading-none lg:rounded-full flex lg:inline-flex">
-            <span class="flex rounded-full bg-red-500 uppercase px-2 py-1 text-xs font-bold mr-3">ERROR</span>
-            <span class="font-semibold mr-2 text-left flex-auto">{{ $error }}</span>
+            class="flex items-center w-full p-2 mb-2 leading-none text-red-100 bg-red-800 rounded-full lg:rounded-full lg:inline-flex">
+            <span class="flex px-2 py-1 mr-3 text-xs font-bold uppercase bg-red-500 rounded-full">ERROR</span>
+            <span class="flex-auto mr-2 font-semibold text-left">{{ $error }}</span>
         </div>
     @endforeach
-    <div class="w-3/4 max-w-md bg-gray-100 rounded-lg shadow-xs dark:bg-gray-800 p-6 mt-2">
+    <div class="w-3/4 max-w-md p-6 mt-2 bg-gray-100 rounded-lg shadow-xs dark:bg-gray-800">
         <form class="flex flex-col" method="post" action="{{ route('profile.edit') }}" enctype="multipart/form-data">
             @csrf
-            <div class="flex items-center justify-between w-full mb-4 gap-6">
+            <div class="flex items-center justify-between w-full gap-6 mb-4">
                 <label for="dropzone-file"
-                    class="drop_area flex flex-col items-center justify-center w-1/4 h-56 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                    <div class="img_view flex flex-col items-center justify-center pt-5 pb-6 h-64 w-full"
-                        style="background-image: url('{{ asset('images/profiles/' . $user->profile) }}'); background-size: cover; background-repeat: no-repeat; background-position: center">
+                    class="flex flex-col items-center justify-center w-1/4 h-56 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer drop_area bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                    <div class="flex flex-col items-center justify-center w-full h-64 pt-5 pb-6 img_view"
+                        style="background-image: url('{{ $user->profile }}'); background-size: cover; background-repeat: no-repeat; background-position: center">
 
                     </div>
                     <input id="dropzone-file" type="file" class="hidden" name="profile" />
                 </label>
                 <label for="dropzone-thumbnail"
-                    class="drop_thumbnail flex flex-col items-center justify-center w-3/4 h-56 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                    <div class="thumbnail_view flex flex-col items-center justify-center pt-5 pb-6 h-64 w-full"
+                    class="flex flex-col items-center justify-center w-3/4 h-56 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer drop_thumbnail bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                    <div class="flex flex-col items-center justify-center w-full h-64 pt-5 pb-6 thumbnail_view"
                         style="background-image: url('{{ asset('images/profiles/thumbnails/' . $user->thumbnail) }}'); background-size: cover; background-repeat: no-repeat; background-position: center">
-                        <svg class="hide w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                        <svg class="w-8 h-8 mb-4 text-gray-500 hide dark:text-gray-400" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
                         </svg>
-                        <p class=" hide mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click
+                        <p class="mb-2 text-sm text-gray-500  hide dark:text-gray-400"><span class="font-semibold">Click
                                 to
                                 upload</span> or drag and drop</p>
-                        <p class="hide text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF
+                        <p class="text-xs text-gray-500 hide dark:text-gray-400">SVG, PNG, JPG or GIF
                             (MAX. 800x400px)</p>
                     </div>
                     <input id="dropzone-thumbnail" type="file" class="hidden" name="thumbnail" />
@@ -43,7 +43,7 @@
             </div>
 
             <div class="flex justify-between gap-6">
-                <label class="w-full text-sm mt-2">
+                <label class="w-full mt-2 text-sm">
                     <div class="relative text-gray-500 focus-within:text-purple-600">
                         <input type="text" name="first_name" id="firstname" value="{{ $user->first_name }}"
                             class="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                 </label>
-                <label class="w-full text-sm mt-2">
+                <label class="w-full mt-2 text-sm">
                     <div class="relative text-gray-500 focus-within:text-purple-600">
                         <input type="text" name="last_name" id="lastname" value="{{ $user->last_name }}"
                             class="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                 </label>
-                <label class="w-full text-sm mt-2">
+                <label class="w-full mt-2 text-sm">
                     <div class="relative text-gray-500 focus-within:text-purple-600">
                         <input type="text" name="username" id="username" value="{{ $user->username }}"
                             class="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
@@ -88,7 +88,7 @@
             </div>
 
             <div class="flex justify-between gap-6">
-                <label class="w-full text-sm mt-2">
+                <label class="w-full mt-2 text-sm">
                     <div class="relative text-gray-500 focus-within:text-purple-600">
                         <input type="text" name="school" id="school" value="{{ $user->school }}"
                             class="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
@@ -102,7 +102,7 @@
                         </div>
                     </div>
                 </label>
-                <label class="w-full text-sm mt-2">
+                <label class="w-full mt-2 text-sm">
                     <div class="relative text-gray-500 focus-within:text-purple-600">
                         <input type="text" name="college" id="college" value="{{ $user->college }}"
                             class="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
@@ -116,7 +116,7 @@
                         </div>
                     </div>
                 </label>
-                <label class="w-full text-sm mt-2">
+                <label class="w-full mt-2 text-sm">
                     <div class="relative text-gray-500 focus-within:text-purple-600">
                         <input type="text" name="university" id="university" value="{{ $user->university }}"
                             class="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
@@ -133,7 +133,7 @@
             </div>
 
             <div class="flex justify-between gap-6">
-                <label class="w-full text-sm mt-2">
+                <label class="w-full mt-2 text-sm">
                     <div class="relative text-gray-500 focus-within:text-purple-600">
                         <select name="relationship" id="relationship"
                             class="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input">
@@ -152,7 +152,7 @@
                         </div>
                     </div>
                 </label>
-                <label class="w-full text-sm mt-2">
+                <label class="w-full mt-2 text-sm">
                     <div class="relative text-gray-500 focus-within:text-purple-600">
                         <input type="text" name="partner" id="partner" value="{{ $user->partner }}"
                             class="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
@@ -167,7 +167,7 @@
                         </div>
                     </div>
                 </label>
-                <label class="w-full text-sm mt-2">
+                <label class="w-full mt-2 text-sm">
                     <div class="relative text-gray-500 focus-within:text-purple-600">
                         <input type="text" name="work" id="work" value="{{ $user->wrok }}"
                             class="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
@@ -184,7 +184,7 @@
             </div>
 
             <div class="flex justify-between gap-6">
-                <label class="w-full text-sm mt-2">
+                <label class="w-full mt-2 text-sm">
                     <div class="relative text-gray-500 focus-within:text-purple-600">
                         <input type="text" name="address" id="address" value="{{ $user->address }}"
                             class="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
@@ -198,7 +198,7 @@
                         </div>
                     </div>
                 </label>
-                <label class="w-full text-sm mt-2">
+                <label class="w-full mt-2 text-sm">
                     <div class="relative text-gray-500 focus-within:text-purple-600">
                         <input type="email" name="email" id="email" value="{{ $user->email }}"
                             class="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
@@ -212,7 +212,7 @@
                         </div>
                     </div>
                 </label>
-                <label class="w-full text-sm mt-2">
+                <label class="w-full mt-2 text-sm">
                     <div class="relative text-gray-500 focus-within:text-purple-600">
                         <input type="text" name="website" id="website" value="{{ $user->website }}"
                             class="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
@@ -229,7 +229,7 @@
             </div>
 
             <div class="flex justify-between gap-6">
-                <label class="w-full text-sm mt-2 mb-2">
+                <label class="w-full mt-2 mb-2 text-sm">
                     <div class="relative text-gray-500 focus-within:text-purple-600">
                         <input type="text" name="description" id="description" value="{{ $user->description }}"
                             class="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
@@ -250,17 +250,17 @@
                     <div
                         class="block w-full mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input">
                         <div class="flex justify-evenly">
-                            <div class="flex items bg-transparent items-center">
+                            <div class="flex items-center bg-transparent items">
                                 <input type="radio" name="gender" id="male" value="male"
                                     @if ($user->gender == 'male') checked @endif class="form-radio">
                                 <label for="male" class="pl-2">Male</label>
                             </div>
-                            <div class="flex items bg-transparent items-center">
+                            <div class="flex items-center bg-transparent items">
                                 <input type="radio" name="gender" id="female" value="female"
                                     @if ($user->gender == 'female') checked @endif class="form-radio">
                                 <label for="female" class="pl-2">Female</label>
                             </div>
-                            <div class="flex items bg-transparent items-center">
+                            <div class="flex items-center bg-transparent items">
                                 <input type="radio" name="gender" id="custom" value="custom"
                                     @if ($user->gender == 'custom') checked @endif class="form-radio">
                                 <label for="custom" class="pl-2">Custom</label>
@@ -269,7 +269,7 @@
                     </div>
                 </div>
             </div>
-            <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4 submit"
+            <button class="px-4 py-2 mt-4 font-bold text-white bg-blue-500 rounded-md submit"
                 type="submit">Edit</button>
         </form>
     </div>

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class GroupMember extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'group_id',
         'user_id',
@@ -16,8 +17,6 @@ class GroupMember extends Model
 
     /**
      * Get the user that owns the GroupMember
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user(): BelongsTo
     {

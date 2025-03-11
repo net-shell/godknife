@@ -2,18 +2,17 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
 use App\Models\Group;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Livewire\Component;
 
 class CreateSquad extends Component
 {
     public function render()
     {
-        return view('livewire.create-squad')->extends('layouts.app');;
+        return view('livewire.create-squad')->extends('layouts.app');
     }
 
     public function createSquad(Request $request)
@@ -27,15 +26,13 @@ class CreateSquad extends Component
             'location' => ['required', 'min:3', 'max:255'],
         ]);
 
-
-
         DB::beginTransaction();
         try {
-            $icon = time() . '.' . $request->icon->extension();
+            $icon = time().'.'.$request->icon->extension();
             $path = public_path('images/squads');
             $request->icon->move($path, $icon);
 
-            $thumbnail = time() . '.' . $request->thumbnail->extension();
+            $thumbnail = time().'.'.$request->thumbnail->extension();
             $path = public_path('images/squads/thumbnails');
             $request->thumbnail->move($path, $thumbnail);
 
@@ -56,6 +53,7 @@ class CreateSquad extends Component
             session()->flash('error', 'Something went wrong');
             throw $e;
         }
+
         return redirect()->route('my-squads');
     }
 }

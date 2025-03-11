@@ -3,9 +3,7 @@
     $path = parse_url(url()->current())['path'];
     $uuid = substr($path, strrpos($path, '/') + 1);
     $squad = App\Models\Group::where('uuid', $uuid)->first();
-    $posts = App\Models\Post::where('group_id', $squad->id)
-        ->get()
-        ->sortByDesc('created_at');
+    $posts = App\Models\Post::where('group_id', $squad->id)->get()->sortByDesc('created_at');
     $joined = App\Models\GroupMember::where('user_id', auth()->id())
         ->where('group_id', $squad->id)
         ->exists();
@@ -24,23 +22,23 @@
         }
     </script>
     <div id="squadDelete"
-        class=" hidden absolute z-10 center-absolute w-1/3 bg-red-100 border-t-8 border-red-600 rounded-b-lg px-4 py-4 flex-col justify-around shadow-md dark:bg-white text-gray-700 dark:text-gray-700">
-        <div class="flex flex-col justify-center items-center">
+        class="absolute z-10 flex-col justify-around hidden w-1/3 px-4 py-4 text-gray-700 bg-red-100 border-t-8 border-red-600 rounded-b-lg shadow-md  center-absolute dark:bg-white dark:text-gray-700">
+        <div class="flex flex-col items-center justify-center">
             <img src="{{ asset('images/website/trash_bin.gif') }}" alt="" width="100px">
-            <h2 class="text-lg font-bold mt-2 text-center">Are you sure to delete <span
+            <h2 class="mt-2 text-lg font-bold text-center">Are you sure to delete <span
                     id="modal-title">{{ $squad->name }}</span> ?</h2>
-            <span class="text-sm font-bold my-4">To confirm, type "{{ $squad->name }}" in the box
+            <span class="my-4 text-sm font-bold">To confirm, type "{{ $squad->name }}" in the box
                 below</span>
             <input type="text" name="checkDeleteSquadName" id="checkDeleteSquadName" onblur="checkDeleteSquadName()"
-                class="border-black bg-gray-300 block w-full mt-1 text-sm text-black focus:shadow-outline-gray form-input">
+                class="block w-full mt-1 text-sm text-black bg-gray-300 border-black focus:shadow-outline-gray form-input">
             <div class="flex justify-between gap-6 mt-2">
                 <a href="" id="deleteSquad"
-                    class="bg-red-600 active:bg-red-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                    class="px-4 py-2 mb-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-red-600 rounded shadow outline-none active:bg-red-600 hover:shadow-md focus:outline-none sm:mr-2"
                     type="button">
                     Delete
                 </a>
                 <button
-                    class="bg-gray-600 active:bg-gray-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                    class="px-4 py-2 mb-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-gray-600 rounded shadow outline-none active:bg-gray-600 hover:shadow-md focus:outline-none sm:mr-2"
                     type="button" onclick="closeModal()">
                     Cancle
                 </button>
@@ -49,19 +47,19 @@
     </div>
     <div class="relative">
         <img src="{{ asset('images/squads/thumbnails/' . $squad->thumbnail) }}" alt="Cover photo"
-            class="w-full h-72 rounded-t-lg">
+            class="w-full rounded-t-lg h-72">
     </div>
-    <div class="bg-gray-100 p-4 rounded-lg shadow mt-4 dark:bg-gray-800 dark:text-gray-200">
+    <div class="p-4 mt-4 bg-gray-100 rounded-lg shadow dark:bg-gray-800 dark:text-gray-200">
         <hr class="my-3 dark:border-gray-600" />
-        <div class="flex justify-between items-center p-4">
-            <div class="border-4 border-black bg-gray-100 rounded-lg overflow-hidden dark:border-white">
+        <div class="flex items-center justify-between p-4">
+            <div class="overflow-hidden bg-gray-100 border-4 border-black rounded-lg dark:border-white">
                 <img src="{{ asset('images/squads/' . $squad->icon) }}" alt="Profile picture"
-                    class="w-24 h-24 object-cover">
+                    class="object-cover w-24 h-24">
             </div>
             <div class="text-center">
                 <h2 class="text-lg font-bold">{{ $squad->name }}</h2>
 
-                <span class="font-semibold text-sm text-gray-600 dark:text-gray-400">
+                <span class="text-sm font-semibold text-gray-600 dark:text-gray-400">
                     {{ $squad->members }} @if ($squad->members > 1)
                         Members
                     @else
@@ -74,7 +72,7 @@
                         Post
                     @endif
                 </span><br />
-                <span class="font-semibold text-sm text-gray-600 dark:text-gray-400">" {{ $squad->description }}
+                <span class="text-sm font-semibold text-gray-600 dark:text-gray-400">" {{ $squad->description }}
                     "</span>
             </div>
             <div class="flex gap-6">
@@ -108,7 +106,7 @@
         <hr class="my-3 dark:border-gray-600" />
     </div>
 
-    <section class="container my-4 px-6 mx-auto grid">
+    <section class="container grid px-6 mx-auto my-4">
         @if ($posts->count() > 0)
             <div class="grid gap-6 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                 <!-- Card -->
@@ -120,8 +118,7 @@
                     <div class="flex flex-col p-4 bg-gray-100 rounded-lg shadow-xs dark:bg-gray-800">
                         <div class="flex items-center justify-between">
                             <div class="flex">
-                                <img src="{{ asset('images/profiles/' . $user->profile) }}" alt="Avatar"
-                                    class="w-12 h-12 rounded-full mr-4">
+                                <img src="{{ $user->profile }}" alt="Avatar" class="w-12 h-12 mr-4 rounded-full">
                                 <div>
                                     <a href="{{ route('profile.show', $user->username) }}">
                                         <h2 class="text-sm font-medium text-gray-700 dark:text-gray-200">
@@ -141,7 +138,7 @@
                             </div>
                         </div>
 
-                        <div class="mt-4 h-12">
+                        <div class="h-12 mt-4">
                             <h2 class="text-xl font-bold text-gray-700 dark:text-gray-100">{{ $post->title }}</h2>
                         </div>
                         <div class="mt-4">
@@ -150,11 +147,11 @@
                             <img src="{{ asset('images/thumbnails/' . $post->thumbnail) }}" alt="Post Image"
                                 class="text-center rounded-lg" width="100%" height="200px">
                         </div>
-                        <div class="mt-4 flex justify-between h-6">
+                        <div class="flex justify-between h-6 mt-4">
                             <span>
                                 @if ($post->likes > 0)
                                     <span
-                                        class="text-xs text-gray-700 dark:text-gray-100 font-bold">{{ $post->likes }}</span>
+                                        class="text-xs font-bold text-gray-700 dark:text-gray-100">{{ $post->likes }}</span>
                                     <span class="text-xs text-gray-600 dark:text-gray-400">Upvotes</span>
                                 @endif
                             </span>
@@ -163,7 +160,7 @@
                                 <span>
                                     @if ($post->comments > 0)
                                         <span
-                                            class="text-xs text-gray-700 dark:text-gray-100 font-bold">{{ $post->comments }}</span>
+                                            class="text-xs font-bold text-gray-700 dark:text-gray-100">{{ $post->comments }}</span>
                                         <span class="text-xs text-gray-600 dark:text-gray-400">Comments</span>
                                         <span class="text-xs font-bold text-gray-600 dark:text-white">:</span>
                                     @endif
@@ -171,14 +168,14 @@
                                 <span>
                                     @if ($post->shares > 0)
                                         <span
-                                            class="text-xs text-gray-700 dark:text-gray-100 font-bold">{{ $post->shares }}</span>
+                                            class="text-xs font-bold text-gray-700 dark:text-gray-100">{{ $post->shares }}</span>
                                         <span class="text-xs text-gray-600 dark:text-gray-400">Shares</span>
                                     @endif
                                 </span>
                             </div>
                         </div>
                         <hr class="mt-2" />
-                        <div class="px-4 mt-4 flex justify-between">
+                        <div class="flex justify-between px-4 mt-4">
                             <div class="flex items-center justify-center ">
                                 @php
                                     $like = App\Models\Like::where([
@@ -188,7 +185,7 @@
                                 @endphp
                                 @if ($like)
                                     <a href="{{ route('post.dislike', $post->id, 'dislike') }}"
-                                        class=" hover:bg-gray-800 text-gray-700 dark:text-gray-100 font-medium py-2 rounded">
+                                        class="py-2 font-medium text-gray-700 rounded  hover:bg-gray-800 dark:text-gray-100">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="2" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -197,7 +194,7 @@
                                     </a>
                                 @else
                                     <a href="{{ route('post.like', $post->id, 'like') }}"
-                                        class=" hover:bg-gray-800 text-gray-700 dark:text-gray-100 font-medium py-2 rounded">
+                                        class="py-2 font-medium text-gray-700 rounded  hover:bg-gray-800 dark:text-gray-100">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="2" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -210,7 +207,7 @@
                             <div class="flex items-center justify-center ">
                                 <a href="{{ route('post.show', $post->uuid) }}"class="flex items-center">
                                     <button
-                                        class="hover:bg-gray-800 text-gray-700 dark:text-gray-100 font-medium py-2 rounded"
+                                        class="py-2 font-medium text-gray-700 rounded hover:bg-gray-800 dark:text-gray-100"
                                         disabled>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -222,7 +219,7 @@
                             </div>
                             <div class="flex items-center justify-center ">
                                 <a href="{{ route('share-post', $post->id) }}"
-                                    class="hover:bg-gray-800 text-gray-700 dark:text-gray-100 font-medium py-2 rounded">
+                                    class="py-2 font-medium text-gray-700 rounded hover:bg-gray-800 dark:text-gray-100">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -242,7 +239,7 @@
             <div class="flex items-center justify-center h-56">
                 <div class="text-center">
                     <h1 class="text-2xl font-semibold text-gray-700 dark:text-gray-200">No Posts Found</h1>
-                    <p class="text-gray-500 dark:text-gray-300 mt-2">No posts found. Please check back later.</p>
+                    <p class="mt-2 text-gray-500 dark:text-gray-300">No posts found. Please check back later.</p>
                 </div>
             </div>
 

@@ -3,7 +3,6 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\User;
 
 class ContactAdmin extends Component
 {

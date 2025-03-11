@@ -2,12 +2,12 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use App\Models\Notification;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Livewire\Component;
 
 class ProfileEdit extends Component
 {
@@ -68,13 +68,13 @@ class ProfileEdit extends Component
             if ($request->partner != $user->partner) {
                 $sender->update([
                     'relationship' => $request->relationship,
-                    'partner' => $user->username
+                    'partner' => $user->username,
                 ]);
                 Notification::create([
-                    "type" =>  "Relationship Status",
-                    "user_id" => $sender->id,
-                    "message" => auth()->user()->username . " is now in a relationship with " . $request->partner,
-                    "url" => '/profile/' . $request->partner . '/edit'
+                    'type' => 'Relationship Status',
+                    'user_id' => $sender->id,
+                    'message' => auth()->user()->username.' is now in a relationship with '.$request->partner,
+                    'url' => '/profile/'.$request->partner.'/edit',
                 ]);
             }
         }
@@ -83,12 +83,12 @@ class ProfileEdit extends Component
     private function updateProfilePicture(User $user, Request $request)
     {
         if ($request->hasFile('profile') && $request->profile->getClientOriginalName() != $user->profile) {
-            $oldProfile = public_path('storage/' . $user->profile);
+            $oldProfile = public_path('storage/'.$user->profile);
             if (file_exists($oldProfile)) {
                 unlink($oldProfile);
             }
 
-            $profile = time() . '.' . $request->profile->extension();
+            $profile = time().'.'.$request->profile->extension();
             $path = public_path('images/profiles');
             $request->profile->move($path, $profile);
             $user->profile = $profile;
@@ -99,7 +99,7 @@ class ProfileEdit extends Component
     private function updateThumbnail(User $user, Request $request)
     {
         if ($request->hasFile('thumbnail')) {
-            $thumbnail = time() . '.' . $request->thumbnail->extension();
+            $thumbnail = time().'.'.$request->thumbnail->extension();
             $path = public_path('images/profiles/thumbnails');
             $request->thumbnail->move($path, $thumbnail);
             $user->thumbnail = $thumbnail;

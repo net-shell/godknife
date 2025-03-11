@@ -43,6 +43,7 @@ class User extends Authenticatable
         'banned_at',
         'banned_to',
         'password',
+        'facebook_id',
     ];
 
     /**
@@ -57,7 +58,7 @@ class User extends Authenticatable
 
     public function is_friend()
     {
-        return (Friend::where(['user_id' => $this->id])->orWhere('friend_id', $this->id)->first()->status ?? "");
+        return Friend::where(['user_id' => $this->id])->orWhere('friend_id', $this->id)->first()->status ?? '';
     }
 
     /**

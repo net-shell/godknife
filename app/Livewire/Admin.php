@@ -2,10 +2,9 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
-use App\Models\Post;
-use App\Models\User;
 use App\Models\Notification;
+use App\Models\User;
+use Livewire\Component;
 
 class Admin extends Component
 {
@@ -26,25 +25,26 @@ class Admin extends Component
 
             ]);
             Notification::create([
-                "type" => "Temporary Lock",
-                "user_id" => $user->id,
-                "message" => $user->username . " You have been Temporary Lock.",
-                "url" => "logout"
+                'type' => 'Temporary Lock',
+                'user_id' => $user->id,
+                'message' => $user->username.' You have been Temporary Lock.',
+                'url' => 'logout',
             ]);
         } else {
             $user->update([
                 'is_banned' => $user->is_banned + 1,
                 'banned_at' => now('Asia/Yangon'),
-                'banned_to' => now('Asia/Yangon')->addMinute(5)
+                'banned_to' => now('Asia/Yangon')->addMinute(5),
             ]);
 
             Notification::create([
-                "type" => "Ban User",
-                "user_id" => $user->id,
-                "message" => $user->username . " You have been banned from the platform.",
-                "url" => "/profile/" . $user->username
+                'type' => 'Ban User',
+                'user_id' => $user->id,
+                'message' => $user->username.' You have been banned from the platform.',
+                'url' => '/profile/'.$user->username,
             ]);
         }
+
         return redirect()->route('all-users');
     }
 
@@ -54,6 +54,7 @@ class Admin extends Component
         $user->update([
             'banned_to' => now('Asia/Yangon'),
         ]);
+
         return redirect()->route('all-users');
     }
 
@@ -63,6 +64,7 @@ class Admin extends Component
         $user->update([
             'is_private' => 0,
         ]);
+
         return redirect()->route('all-users');
     }
 }

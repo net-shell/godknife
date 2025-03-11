@@ -22,7 +22,7 @@
                         </p>
 
                         <p class="my-4">
-                            <a href="#"
+                            <a href="{{ route('login.facebook') }}"
                                 class="flex justify-center px-4 py-2 text-center text-white bg-black rounded-md">
                                 <svg class="w-6 h-6 text-white fill-white" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 50 50">
@@ -45,7 +45,7 @@
                         </ul>
 
                         <p class="my-4">
-                            <a href="#"
+                            <a href="{{ route('login.facebook') }}"
                                 class="flex justify-center px-4 py-2 text-center text-white bg-black rounded-md">
                                 <svg class="w-6 h-6 text-white fill-white" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 50 50">
@@ -54,8 +54,7 @@
                                     </path>
                                 </svg>
                                 <span class="ml-4">
-                                    Log in with Facebook
-                                    and start exploring now!
+                                    Log in and start exploring now!
                                 </span>
                             </a>
                         </p>

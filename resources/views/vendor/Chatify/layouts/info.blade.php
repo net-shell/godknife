@@ -4,8 +4,8 @@
     $userid = substr($path, strrpos($path, '/') + 1);
     $user = App\Models\User::find($userid);
 @endphp
-<div class="avatar w-32 h-32 flex">
-    <img src="{{ asset('images/profiles/' . $user->profile) }}" alt="avatar">
+<div class="flex w-32 h-32 avatar">
+    <img src="{{ $user->profile }}" alt="avatar">
 </div>
 <p class="info-name">{{ $user->first_name . ' ' . $user->last_name }}</p>
 <div class="messenger-infoView-btns">

@@ -3,21 +3,24 @@
 namespace App\Livewire\Components;
 
 use App\Models\Notification;
-use Livewire\Component;
 use App\Models\Post;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use App\Providers\RouteServiceProvider;
 use App\Models\PostMedia;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class CreatePost extends Component
 {
     use WithFileUploads;
+
     public $title;
+
     public $content;
+
     public $thumbnail;
+
     public function render()
     {
         return view('livewire.components.create-post')->extends('layouts.app');
@@ -39,7 +42,7 @@ class CreatePost extends Component
         DB::beginTransaction();
         try {
 
-            $thumbnail = time() . '.' . $request->thumbnail->extension();
+            $thumbnail = time().'.'.$request->thumbnail->extension();
             $path = public_path('images/thumbnails');
             $request->thumbnail->move($path, $thumbnail);
 
@@ -54,7 +57,7 @@ class CreatePost extends Component
             $images = [];
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
-                    $imageName = time() . '_' . $image->getClientOriginalName();
+                    $imageName = time().'_'.$image->getClientOriginalName();
                     $path = public_path('images/posts');
                     $image->move($path, $imageName);
                     $images[] = $imageName;
@@ -63,7 +66,7 @@ class CreatePost extends Component
                     'post_id' => $post->id,
                     'file_type' => 'image',
                     'file' => json_encode($images),
-                    'position' => "general",
+                    'position' => 'general',
                 ]);
             }
 
@@ -73,10 +76,10 @@ class CreatePost extends Component
                 if (strpos($request->content, $content) !== false) {
                     // send notification to admin
                     Notification::create([
-                        "type" => "Admin Notification",
-                        "user_id" => 8,
-                        "message" =>  auth()->user()->username . " Post created with " . $content,
-                        "url" => "/post/" . $post->uuid
+                        'type' => 'Admin Notification',
+                        'user_id' => 8,
+                        'message' => auth()->user()->username.' Post created with '.$content,
+                        'url' => '/post/'.$post->uuid,
                     ]);
                 }
             }
@@ -87,8 +90,6 @@ class CreatePost extends Component
             session()->flash('error', 'Something went wrong');
             throw $e;
         }
-
-
 
         unset($this->title);
         unset($this->content);
