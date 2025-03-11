@@ -1,146 +1,70 @@
-{{-- <x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
-
-        <x-validation-errors class="mb-4" />
-
-        @if (session('status'))
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ session('status') }}
-            </div>
-        @endif
-
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-
-            <div>
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
-            </div>
-
-            <div class="block mt-4">
-                <label for="remember_me" class="flex items-center">
-                    <x-checkbox id="remember_me" name="remember" />
-                    <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
-                <x-button class="ms-4">
-                    {{ __('Log in') }}
-                </x-button>
-            </div>
-        </form>
-    </x-authentication-card>
-</x-guest-layout> --}}
-
 @extends('layouts.guest')
 @section('title', 'Login')
+
 @section('content')
-    <div class="flex h-screen">
-        <div class="container px-6 mx-auto flex flex-col justify-center items-center">
-            <span class="text-black text-2xl font-bold mb-4">Social Network Platform for Online Communities</span>
-            <div class="p-4 bg-gray-300 rounded-lg shadow-xl w-1/2">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Log in</h2>
-                @foreach ($errors->all() as $error)
-                    <div role="alert"
-                        class="w-full p-2 bg-red-800 rounded-full items-center text-red-100 leading-none lg:rounded-full flex lg:inline-flex">
-                        <span class="flex rounded-full bg-red-500 uppercase px-2 py-1 text-xs font-bold mr-3">ERROR</span>
-                        <span class="font-semibold mr-2 text-left flex-auto">Incorrect username or password! </span>
+    <div class="container flex flex-row items-center justify-center h-screen px-6 mx-auto">
+        <div class="mb-4 text-center text-white">
+            <div class="max-w-md mx-auto overflow-hidden rounded-lg shadow-md bg-gk-light md:max-w-2xl">
+                <div class="md:flex">
+                    <div class="md:shrink-0">
+                        <img class="object-cover w-full h-48 md:h-full md:w-48" src="/images/website/logo_web.jpg"
+                            alt="GodKnife.com">
                     </div>
-                @endforeach
-                <form class="flex flex-col" method="POST" action="{{ route('login') }}">
-                    @csrf
+                    <div class="p-4">
+                        <h1 class="mb-4 text-lg font-bold">
+                            🔪🔥
+                            Welcome to GodKnife.com!
+                            🔪🔥
+                        </h1>
 
-                    <label class="block text-sm mt-2">
-                        <div class="relative text-gray-500 focus-within:text-purple-600">
-                            <input required type="text" name="username" value="{{ old('username') }}" id="username"
-                                class="block w-full pl-10 mt-1 text-sm text-black  focus:border-purple-400 focus:outline-none focus:shadow-outline-purple form-input"
-                                placeholder="Username" />
+                        <p>
+                            Unlock the ultimate blade collection with just one click.
+                        </p>
 
-                            <div class="absolute inset-y-0 flex items-center ml-3 pointer-events-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                        <p class="my-4">
+                            <a href="#"
+                                class="flex justify-center px-4 py-2 text-center text-white bg-black rounded-md">
+                                <svg class="w-6 h-6 text-white fill-white" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 50 50">
+                                    <path
+                                        d="M 25 3 C 12.861562 3 3 12.861562 3 25 C 3 36.019135 11.127533 45.138355 21.712891 46.728516 L 22.861328 46.902344 L 22.861328 29.566406 L 17.664062 29.566406 L 17.664062 26.046875 L 22.861328 26.046875 L 22.861328 21.373047 C 22.861328 18.494965 23.551973 16.599417 24.695312 15.410156 C 25.838652 14.220896 27.528004 13.621094 29.878906 13.621094 C 31.758714 13.621094 32.490022 13.734993 33.185547 13.820312 L 33.185547 16.701172 L 30.738281 16.701172 C 29.349697 16.701172 28.210449 17.475903 27.619141 18.507812 C 27.027832 19.539724 26.84375 20.771816 26.84375 22.027344 L 26.84375 26.044922 L 32.966797 26.044922 L 32.421875 29.564453 L 26.84375 29.564453 L 26.84375 46.929688 L 27.978516 46.775391 C 38.71434 45.319366 47 36.126845 47 25 C 47 12.861562 37.138438 3 25 3 z M 25 5 C 36.057562 5 45 13.942438 45 25 C 45 34.729791 38.035799 42.731796 28.84375 44.533203 L 28.84375 31.564453 L 34.136719 31.564453 L 35.298828 24.044922 L 28.84375 24.044922 L 28.84375 22.027344 C 28.84375 20.989871 29.033574 20.060293 29.353516 19.501953 C 29.673457 18.943614 29.981865 18.701172 30.738281 18.701172 L 35.185547 18.701172 L 35.185547 12.009766 L 34.318359 11.892578 C 33.718567 11.811418 32.349197 11.621094 29.878906 11.621094 C 27.175808 11.621094 24.855567 12.357448 23.253906 14.023438 C 21.652246 15.689426 20.861328 18.170128 20.861328 21.373047 L 20.861328 24.046875 L 15.664062 24.046875 L 15.664062 31.566406 L 20.861328 31.566406 L 20.861328 44.470703 C 11.816995 42.554813 5 34.624447 5 25 C 5 13.942438 13.942438 5 25 5 z">
+                                    </path>
                                 </svg>
-                            </div>
-                        </div>
-                    </label>
+                                <span class="ml-4">Log in with Facebook</span>
+                            </a>
+                        </p>
 
+                        <p class="mb-4">
+                            for a seamless shopping experience and exclusive offers on premium knives.
+                        </p>
 
-                    <label class="block mt-2 text-sm">
-                        <div class="relative text-gray-500 focus-within:text-purple-600">
-                            <input type="password" name="password" id="password" required
-                                class="block w-full pl-10 mt-1 text-sm text-blac focus:border-purple-400 focus:outline-none focus:shadow-outline-purple form-input"
-                                placeholder="Password" />
-                            <div class="absolute inset-y-0 flex items-center ml-3 pointer-events-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                        <ul>
+                            <li>⚡ **Fast & Secure Access**</li>
+                            <li>🔥 **Exclusive Deals & Updates**</li>
+                            <li>🔪 **The Best Knives, Just for You**</li>
+                        </ul>
+
+                        <p class="my-4">
+                            <a href="#"
+                                class="flex justify-center px-4 py-2 text-center text-white bg-black rounded-md">
+                                <svg class="w-6 h-6 text-white fill-white" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 50 50">
+                                    <path
+                                        d="M 25 3 C 12.861562 3 3 12.861562 3 25 C 3 36.019135 11.127533 45.138355 21.712891 46.728516 L 22.861328 46.902344 L 22.861328 29.566406 L 17.664062 29.566406 L 17.664062 26.046875 L 22.861328 26.046875 L 22.861328 21.373047 C 22.861328 18.494965 23.551973 16.599417 24.695312 15.410156 C 25.838652 14.220896 27.528004 13.621094 29.878906 13.621094 C 31.758714 13.621094 32.490022 13.734993 33.185547 13.820312 L 33.185547 16.701172 L 30.738281 16.701172 C 29.349697 16.701172 28.210449 17.475903 27.619141 18.507812 C 27.027832 19.539724 26.84375 20.771816 26.84375 22.027344 L 26.84375 26.044922 L 32.966797 26.044922 L 32.421875 29.564453 L 26.84375 29.564453 L 26.84375 46.929688 L 27.978516 46.775391 C 38.71434 45.319366 47 36.126845 47 25 C 47 12.861562 37.138438 3 25 3 z M 25 5 C 36.057562 5 45 13.942438 45 25 C 45 34.729791 38.035799 42.731796 28.84375 44.533203 L 28.84375 31.564453 L 34.136719 31.564453 L 35.298828 24.044922 L 28.84375 24.044922 L 28.84375 22.027344 C 28.84375 20.989871 29.033574 20.060293 29.353516 19.501953 C 29.673457 18.943614 29.981865 18.701172 30.738281 18.701172 L 35.185547 18.701172 L 35.185547 12.009766 L 34.318359 11.892578 C 33.718567 11.811418 32.349197 11.621094 29.878906 11.621094 C 27.175808 11.621094 24.855567 12.357448 23.253906 14.023438 C 21.652246 15.689426 20.861328 18.170128 20.861328 21.373047 L 20.861328 24.046875 L 15.664062 24.046875 L 15.664062 31.566406 L 20.861328 31.566406 L 20.861328 44.470703 C 11.816995 42.554813 5 34.624447 5 25 C 5 13.942438 13.942438 5 25 5 z">
+                                    </path>
                                 </svg>
-                            </div>
-                            <button type="button"
-                                class="w-20 password-toggle-icon absolute inset-y-0 right-0 flex justify-center items-center px-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-r-md"
-                                onclick="password_show_hide()">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="hidden w-6 h-6" id="show">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                </svg>
-
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6" id="hide">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
-                                </svg>
-                            </button>
-                        </div>
-                    </label>
-
-                    <!-- Remember Me -->
-
-                    <div class="flex mt-2 text-sm justify-between mt-4">
-                        <label for="remember_me" class="inline-flex items-center">
-                            <input type="checkbox" name="remember" id="remember_me"
-                                class="text-blue-600 form-checkbox focus:border-blue-400 focus:outline-none focus:shadow-outline-purple " />
-                            <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                        </label>
-                        <label class="flex items-center">
-                            @if (Route::has('password.request'))
-                                <a class="underline text-sm text-gray-400 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                    href="{{ route('password.request') }}">
-                                    {{ __('Forgot your password?') }}
-                                </a>
-                            @endif
-                        </label>
+                                <span class="ml-4">
+                                    Log in with Facebook
+                                    and start exploring now!
+                                </span>
+                            </a>
+                        </p>
                     </div>
-
-                    <button
-                        class="text-white font-bold w-1/4 py-2 px-4 mt-4 mx-auto rounded-md border-2 bg-black hover:bg-black "
-                        type="submit">Login</button>
-                    <span class="text-black text-sm text-center mt-4">Don't have an account? <a
-                            href="{{ route('register') }}" class="text-blue-600 font-semibold">Signup</a></span>
-                </form>
+                </div>
             </div>
         </div>
     </div>
+
     <script>
         function password_show_hide() {
             var input_box = document.getElementById("password");
@@ -158,5 +82,4 @@
             }
         }
     </script>
-
 @endsection
