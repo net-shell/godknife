@@ -28,12 +28,13 @@ class FacebookController extends Controller
                 $first_name = explode(' ', $user->name);
                 $last_name = array_pop($first_name);
                 $first_name = implode(' ', $first_name);
+                $username = str_replace(' ', '', $user->name);
 
                 $newUser = User::create([
                     'uuid' => \Str::uuid(),
                     'first_name' => $first_name,
                     'last_name' => $last_name,
-                    'username' => $user->name,
+                    'username' => $username,
                     'email' => $user->email,
                     'facebook_id' => $user->id,
                     'email_verified_at' => now(),
