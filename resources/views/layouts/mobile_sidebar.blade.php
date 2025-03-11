@@ -24,23 +24,23 @@
     }
 </script>
 <div id="accountDelete"
-    class=" hidden absolute z-10 center-absolute w-1/3 bg-red-100 border-t-8 border-red-600 rounded-b-lg px-4 py-4 flex-col justify-around shadow-md dark:bg-white text-gray-700 dark:text-gray-700">
-    <div class="flex flex-col justify-center items-center">
+    class="absolute z-10 flex-col justify-around hidden w-1/3 px-4 py-4 text-gray-700 bg-red-100 border-t-8 border-red-600 rounded-b-lg shadow-md center-absolute dark:bg-white dark:text-gray-700">
+    <div class="flex flex-col items-center justify-center">
         <img src="{{ asset('images/website/trash_bin.gif') }}" alt="" width="100px">
-        <h2 class="text-lg font-bold mt-2 text-center">Are you sure to delete <span
+        <h2 class="mt-2 text-lg font-bold text-center">Are you sure to delete <span
                 id="modal-title">{{ auth()->user()->username }}</span> ?</h2>
-        <span class="text-sm font-bold my-4">To confirm, type "{{ auth()->user()->username }}" in the box
+        <span class="my-4 text-sm font-bold">To confirm, type "{{ auth()->user()->username }}" in the box
             below</span>
         <input type="text" name="checkDeleteName" id="checkDeleteName" onblur="checkDeleteName()"
-            class="border-black bg-gray-300 block w-full mt-1 text-sm text-black focus:shadow-outline-gray form-input">
+            class="block w-full mt-1 text-sm text-black bg-gray-300 border-black focus:shadow-outline-gray form-input">
         <div class="flex justify-between gap-6 mt-2">
             <a href="" id="deleteAccount"
-                class="bg-red-600 active:bg-red-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                class="px-4 py-2 mb-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-red-600 rounded shadow outline-none active:bg-red-600 hover:shadow-md focus:outline-none sm:mr-2"
                 type="button">
                 Delete
             </a>
             <button
-                class="bg-gray-600 active:bg-gray-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                class="px-4 py-2 mb-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-gray-600 rounded shadow outline-none active:bg-gray-600 hover:shadow-md focus:outline-none sm:mr-2"
                 type="button" onclick="closeModal()">
                 Cancle
             </button>
@@ -63,7 +63,7 @@
     @keydown.escape="closeSideMenu">
     <div class="py-4 text-gray-500 dark:text-gray-400">
         <a href="{{ url('/') }}" class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
-            Social Network Platform
+            {{ env('APP_NAME') }}
         </a>
         <ul class="mt-6">
             <li class="relative px-6 py-1" id="home">
@@ -84,7 +84,7 @@
             </li>
         </ul>
         <!-- <hr class="my-3 dark:border-gray-600" /> -->
-        <span class="px-3 my-3 font-bold text-xs text-black dark:text-gray-100">Squads</span>
+        <span class="px-3 my-3 text-xs font-bold text-black dark:text-gray-100">Squads</span>
         <ul>
             <li class="relative px-6 py-1" id="public_squad.html">
                 <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
@@ -132,7 +132,7 @@
             </li>
         </ul>
 
-        <span class="px-3 my-3 font-bold text-xs text-black dark:text-gray-100">Channels</span>
+        <span class="px-3 my-3 text-xs font-bold text-black dark:text-gray-100">Channels</span>
         <ul>
             <li class="relative px-6 py-1" id="public_squad.html">
                 <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
@@ -178,7 +178,7 @@
             </li>
         </ul>
         <!-- <hr class="my-3 dark:border-gray-600" /> -->
-        <span class="px-3 my-6 font-bold text-xs text-black dark:text-gray-100">Communicate</span>
+        <span class="px-3 my-6 text-xs font-bold text-black dark:text-gray-100">Communicate</span>
         <ul>
             <li class="relative px-6 py-1" id="chatting.html">
                 <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
@@ -207,7 +207,7 @@
                     <span class="ml-4">Notifications</span>
                     @if (count($notifications) > 0)
                         <span
-                            class="ml-4 bg-red-600 px-2 rounded-md text-white font-bold">{{ $notifications->count() }}</span>
+                            class="px-2 ml-4 font-bold text-white bg-red-600 rounded-md">{{ $notifications->count() }}</span>
                     @endif
 
                     @if ($postType == 'notification')
@@ -234,7 +234,7 @@
             </li>
         </ul>
         <!-- <hr class="my-3 dark:border-gray-600" /> -->
-        <span class="px-3 my-6 font-bold text-xs text-black dark:text-gray-100">Manage</span>
+        <span class="px-3 my-6 text-xs font-bold text-black dark:text-gray-100">Manage</span>
         <ul>
             <li class="relative px-6 py-1">
                 <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"

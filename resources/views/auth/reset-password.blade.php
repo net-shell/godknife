@@ -8,7 +8,7 @@
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required
+            <x-text-input id="email" class="block w-full mt-1" type="email" name="email" :value="old('email', $request->email)" required
                 autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
@@ -16,7 +16,7 @@
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
+            <x-text-input id="password" class="block w-full mt-1" type="password" name="password" required
                 autocomplete="new-password" />
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
@@ -25,7 +25,7 @@
         <div class="mt-4">
             <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
+            <x-text-input id="password_confirmation" class="block w-full mt-1" type="password"
                 name="password_confirmation" required autocomplete="new-password" />
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
@@ -43,19 +43,19 @@
 @section('title', 'Login')
 @section('content')
     <div class="flex h-screen">
-        <div class="container px-6 mx-auto flex flex-col justify-center items-center">
-            <span class="text-black text-2xl font-bold mb-4">Social Network Platform for Online Communities</span>
-            <div class="p-4 bg-gray-300 rounded-lg shadow-xl w-1/2">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Password Reset</h2>
+        <div class="container flex flex-col items-center justify-center px-6 mx-auto">
+            <span class="mb-4 text-2xl font-bold text-black">{{ env('APP_NAME') }} for Online Communities</span>
+            <div class="w-1/2 p-4 bg-gray-300 rounded-lg shadow-xl">
+                <h2 class="mb-4 text-2xl font-bold text-gray-800">Password Reset</h2>
                 <form class="flex flex-col" method="POST" action="{{ route('password.store') }}">
                     @csrf
 
                     <input type="hidden" name="token" value="{{ $request->route('token') }}">
-                    <label class="block text-sm mt-2">
+                    <label class="block mt-2 text-sm">
                         <div class="relative text-gray-500 focus-within:text-purple-600">
                             <input required autofocus autocomplete="username" type="email" name="email"
                                 value="{{ old('email', $request->email) }}" id="email"
-                                class="block w-full pl-10 mt-1 text-sm text-black  focus:border-purple-400 focus:outline-none focus:shadow-outline-purple form-input"
+                                class="block w-full pl-10 mt-1 text-sm text-black focus:border-purple-400 focus:outline-none focus:shadow-outline-purple form-input"
                                 placeholder="Email" />
 
                             <div class="absolute inset-y-0 flex items-center ml-3 pointer-events-none">
@@ -82,7 +82,7 @@
                                 </svg>
                             </div>
                             <button type="button"
-                                class="w-20 password-toggle-icon absolute inset-y-0 right-0 flex justify-center items-center px-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-r-md"
+                                class="absolute inset-y-0 right-0 flex items-center justify-center w-20 px-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent password-toggle-icon rounded-r-md"
                                 onclick="password_show_hide()">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="hidden w-6 h-6" id="show">
@@ -105,7 +105,7 @@
                         <div class="relative text-gray-500 focus-within:text-purple-600">
                             <input type="password" name="password_confirmation" id="cpassword" required
                                 autocomplete="new-password"
-                                class="block w-full pl-10 mt-1 text-sm text-black   focus:border-purple-400 focus:outline-none focus:shadow-outline-purple  form-input"
+                                class="block w-full pl-10 mt-1 text-sm text-black focus:border-purple-400 focus:outline-none focus:shadow-outline-purple form-input"
                                 placeholder="Confirm Password" />
                             <div class="absolute inset-y-0 flex items-center ml-3 pointer-events-none">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -115,7 +115,7 @@
                                 </svg>
                             </div>
                             <button type="button"
-                                class="w-20 password-toggle-icon absolute inset-y-0 right-0 flex justify-center items-center px-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-r-md"
+                                class="absolute inset-y-0 right-0 flex items-center justify-center w-20 px-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent password-toggle-icon rounded-r-md"
                                 onclick="cpassword_show_hide()">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="hidden w-6 h-6" id="cshow">
@@ -135,7 +135,7 @@
                     </label>
 
                     <button
-                        class="text-white font-bold w-auto py-2 px-4 mt-4 mx-auto rounded-md border-2 bg-black hover:bg-black "
+                        class="w-auto px-4 py-2 mx-auto mt-4 font-bold text-white bg-black border-2 rounded-md hover:bg-black "
                         type="submit">Reset Password</button>
                 </form>
             </div>
