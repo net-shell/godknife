@@ -31,7 +31,7 @@
 
 
                         <p class="my-4">
-                            <a href="{{ route('login.google') }}"
+                            <a href="{{ route('login.facebook') }}"
                                 class="flex justify-center px-4 py-2 text-center text-white bg-black rounded-md hover:bg-gray-800 active:bg-gray-400">
                                 <svg class="w-6 h-6 text-white fill-white" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 50 50">
@@ -44,7 +44,7 @@
                         </p>
 
                         <p class="my-4">
-                            <a href="{{ route('login.facebook') }}"
+                            <a href="{{ route('login.google') }}"
                                 class="flex justify-center px-4 py-2 text-center text-white bg-black rounded-md hover:bg-gray-800 active:bg-gray-400">
                                 <svg class="w-6 h-6 text-white fill-white" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 50 50">
