@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\like;
+use App\Models\Like;
 use App\Models\Notification;
 use App\Models\Post;
 use App\Models\Share;
@@ -22,8 +22,8 @@ class Home extends Component
             Notification::create([
                 'type' => 'Like Post',
                 'user_id' => $post->user_id,
-                'message' => auth()->user()->username.' liked your post',
-                'url' => '/post/'.$post->uuid,
+                'message' => auth()->user()->username . ' liked your post',
+                'url' => '/post/' . $post->uuid,
             ]);
             DB::commit();
         } catch (\Throwable $th) {
@@ -66,8 +66,8 @@ class Home extends Component
             Notification::create([
                 'type' => 'Share Post',
                 'user_id' => $post->user_id,
-                'message' => auth()->user()->username.' shared your post',
-                'url' => '/post/'.$post->uuid,
+                'message' => auth()->user()->username . ' shared your post',
+                'url' => '/post/' . $post->uuid,
             ]);
             DB::commit();
             session()->flash('success', 'You have successfully shared the post');
