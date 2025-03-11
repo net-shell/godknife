@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\FacebookController;
+use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
@@ -25,6 +26,8 @@ Route::middleware('guest')->group(function () {
 
     Route::get('login/facebook', [FacebookController::class, 'redirectToFacebook'])->name('login.facebook');
     Route::get('login/facebook/callback', [FacebookController::class, 'handleFacebookCallback']);
+    Route::get('login/google', [GoogleController::class, 'redirectToGoogle'])->name('login.google');
+    Route::get('login/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
         ->name('password.request');

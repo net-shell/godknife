@@ -7,18 +7,19 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
-class FacebookController extends Controller
+class GoogleController extends Controller
 {
-    public function redirectToFacebook()
+    public function redirectToGoogle()
     {
-        return Socialite::driver('facebook')->redirect();
+        return Socialite::driver('google')->redirect();
     }
 
     public function handleFacebookCallback()
     {
         try {
-            $user = Socialite::driver('facebook')->user();
-            $finduser = User::where('facebook_id', $user->id)->first();
+            $user = Socialite::driver('google')->user();
+            //dd($user);
+            $finduser = User::where('google_id', $user->id)->first();
 
             if ($finduser) {
                 Auth::login($finduser);

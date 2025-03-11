@@ -9,6 +9,7 @@ return new class extends Migration
     {
         Schema::table('users', function ($table) {
             $table->string('facebook_id')->nullable();
+            $table->string('google_id')->nullable();
         });
     }
 
@@ -16,6 +17,7 @@ return new class extends Migration
     {
         Schema::table('users', function ($table) {
             $table->dropColumn('facebook_id');
+            $table->dropColumn('google_id');
         });
     }
 };
