@@ -40,13 +40,14 @@ class FacebookController extends Controller
                         'last_name' => $last_name,
                         'username' => $username,
                         'email' => $user->email,
-                        'facebook_id' => $user->id,
                         'email_verified_at' => now(),
                         'password' => encrypt('1!2@3#4$5%6^7&8*9(0)'), // TODO: Change this to a random password
                         'thumbnail' => $user->getAvatar(),
                         'profile' => $user->getAvatar(),
                     ]
                 );
+                $newUser->facebook_id = $user->id;
+                $newUser->save();
 
                 Auth::login($newUser);
 
