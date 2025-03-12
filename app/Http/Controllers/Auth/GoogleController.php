@@ -31,18 +31,23 @@ class GoogleController extends Controller
                 $first_name = implode(' ', $first_name);
                 $username = str_replace(' ', '', $user->name);
 
-                $newUser = User::create([
-                    'uuid' => \Str::uuid(),
-                    'first_name' => $first_name,
-                    'last_name' => $last_name,
-                    'username' => $username,
-                    'email' => $user->email,
-                    'facebook_id' => $user->id,
-                    'email_verified_at' => now(),
-                    'password' => encrypt('1!2@3#4$5%6^7&8*9(0)'), // TODO: Change this to a random password
-                    'thumbnail' => $user->getAvatar(),
-                    'profile' => $user->getAvatar(),
-                ]);
+                $newUser = User::firstOrNew(
+                    [
+                        'email' => $user->email,
+                    ],
+                    [
+                        'uuid' => \Str::uuid(),
+                        'first_name' => $first_name,
+                        'last_name' => $last_name,
+                        'username' => $username,
+                        'email' => $user->email,
+                        'facebook_id' => $user->id,
+                        'email_verified_at' => now(),
+                        'password' => encrypt('1!2@3#4$5%6^7&8*9(0)'), // TODO: Change this to a random password
+                        'thumbnail' => $user->getAvatar(),
+                        'profile' => $user->getAvatar(),
+                    ]
+                );
 
                 Auth::login($newUser);
 
