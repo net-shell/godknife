@@ -59,13 +59,13 @@
                                     <a href="{{ route('profile-edit', $user->username, 'edit') }}"
                                         class="px-4 py-2 mb-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-blue-500 rounded shadow outline-none active:bg-blue-600 hover:shadow-md focus:outline-none sm:mr-2"
                                         type="button">
-                                        Edit
+                                        Редакция на профила
                                     </a>
                                 @else
-                                    <a href="{{ url('envoy', $user->id) }}"
+                                    <a href="{{ url('chat', $user->id) }}"
                                         class="px-4 py-2 mb-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-blue-500 rounded shadow outline-none active:bg-blue-600 hover:shadow-md focus:outline-none sm:mr-2"
                                         type="button">
-                                        Connect
+                                        Съобщение
                                     </a>
                                 @endif
                             </div>

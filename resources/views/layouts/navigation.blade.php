@@ -28,16 +28,16 @@
         <ul class="flex items-center flex-shrink-0 space-x-6">
             <!-- New Post Button -->
             <li class="flex">
-                @if (auth()->user()->banned_to > now('Asia/Yangon'))
+                @if (auth()->user()->banned_to > now())
                     <div
                         class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg">
-                        New Post
+                        Добави обява
                     </div>
                 @else
                     <a href="{{ route('create-post') }}">
                         <button
                             class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                            New Post
+                            Добави обява
                         </button>
                     </a>
                 @endif
@@ -84,7 +84,7 @@
                                     <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
                                     </path>
                                 </svg>
-                                <span>Profile</span>
+                                <span>Моят профил</span>
                             </a>
                         </li>
                         <li class="flex">
@@ -97,7 +97,7 @@
                                         d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
                                     </path>
                                 </svg>
-                                <span>Log out</span>
+                                <span>Изход</span>
                             </a>
                         </li>
                     </ul>

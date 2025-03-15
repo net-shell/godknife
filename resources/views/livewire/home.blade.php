@@ -45,8 +45,8 @@
 
                         <div class="inline-flex rounded-lg shadow-sm" role="group">
                             @if ($post->is_page_post == 1)
-                                <a
-                                    href="{{ route('channel.post.show', $post->uuid) }}"class="px-2 py-1 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-l-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
+                                <a href="{{ route('channel.post.show', $post->uuid) }}"
+                                    class="px-2 py-1 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-l-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
                                     Read More
                                 </a>
                             @else
