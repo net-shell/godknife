@@ -53,6 +53,7 @@
                 </label>
 
             </div>
+            <!--
             <div class="flex flex-col w-full mb-4">
                 <div class="flex items-center mb-2 justify-evenly">
                     <button
@@ -107,6 +108,7 @@
 
 
             </div>
+        -->
             <script>
                 tinymce.init({
                     selector: 'textarea',
@@ -123,12 +125,13 @@
                             title: 'Email'
                         },
                     ],
-                    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject(
-                        "See docs to implement AI Assistant")),
+                    //ai_request: (request, respondWith) => respondWith.string(() => Promise.reject(
+                    //    "See docs to implement AI Assistant")),
                 });
             </script>
-            <textarea placeholder="Cover Letter" id="content" name="content">{{ $post->content }}</textarea>
-            <button class="px-4 py-2 mt-4 font-bold text-white bg-blue-500 rounded-md" type="submit">Post</button>
+            <textarea placeholder="Описание на ножа" id="content" name="content">{{ $post->content }}</textarea>
+            <button class="px-4 py-2 mt-4 font-bold text-white bg-blue-500 rounded-md"
+                type="submit">Публикувай</button>
         </form>
     </div>
 </div>

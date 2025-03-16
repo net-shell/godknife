@@ -58,7 +58,7 @@
     </ul>
     <hr class="my-3 dark:border-gray-600" />
     <ul>
-        <li class="relative px-6 py-1">
+        <li class="relative mt-1 px-6 py-1">
             <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                 href="{{ route('save-posts') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

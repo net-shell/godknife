@@ -3,7 +3,7 @@
     $uuid = substr($path, strrpos($path, '/') + 1);
     $post = App\Models\Post::where('uuid', $uuid)->first();
 @endphp
-<div class="flex flex-col items-center">
+<div class="flex flex-row justify-center">
     <script>
         function openModal(title) {
             document.getElementById('modal').classList.remove('hidden');
@@ -37,38 +37,26 @@
     </div>
 
     <div class="w-3/4 max-w-md p-6 mt-2 mb-2 bg-gray-100 rounded-lg shadow-xs dark:bg-gray-800">
-        <div style="background-image: url({{ asset('images/thumbnails/' . $post->thumbnail) }}); background-size: cover; background-position: center; background-repeat: no-repeat;"
+        <div style="background-image: url({{ asset('images/thumbnails/' . $post->thumbnail) }}); background-size: contain; background-position: center; background-repeat: no-repeat;"
             class="flex items-center justify-center rounded-lg min-h-xs">
-            <div class="text-center glass-morphic min-w-xl">
-                <h1 class="text-3xl font-bold text-white">{{ $post->title }}
-                </h1>
-            </div>
         </div>
+        <h1 class="text-3xl font-bold text-white">{{ $post->title }}</h1>
         <div class="flex justify-between mt-4 text-gray-700 dark:text-gray-100">
             <div class="flex">
                 <div>
-                    <img src="{{ $post->user->profile }}" alt="Avatar" class="w-12 h-12 mr-4 rounded-full">
+                    <a href="{{ route('profile.show', $post->user->username) }}">
+                        <img src="{{ $post->user->profile }}" alt="{{ $post->user->full_name }}"
+                            class="w-12 h-12 mr-4 rounded-full">
+                    </a>
                 </div>
                 <div>
-                    <span class="text-sm font-bold">By <a
-                            href="{{ route('profile.show', $post->user->username) }}">{{ $post->user->username }}</a></span><br>
-                    <span class="text-sm font-bold">at {{ $post->created_at->diffForHumans() }}</span>
+                    <span class="text-sm font-bold"><a
+                            href="{{ route('profile.show', $post->user->username) }}">{{ $post->user->full_name }}</a></span><br>
+                    <span class="text-sm font-bold">{{ $post->created_at->diffForHumans() }}</span>
                 </div>
             </div>
-            @if (auth()->id() == $post->user_id)
-                <div class="flex items-center justify-between gap-6">
-                    <a href="{{ route('post.edit', $post->uuid) }}"
-                        class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                        Edit
-                    </a>
-                    <button onclick="openModal('{{ $post->title }}')"
-                        class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-purple">
-                        Delete
-                    </button>
-                </div>
-            @endif
 
-            @if (auth()->user()->username == 'snpoc_admin')
+            @if (auth()->user()->isAdmin)
                 <div class="flex items-center justify-between gap-6">
                     <a href="{{ route('delete&ban', $post->uuid) }}"
                         class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-purple">
@@ -77,7 +65,6 @@
                 </div>
             @endif
         </div>
-
         <div class="mt-4 dark:text-white">
             {!! $post->content !!}
         </div>
@@ -102,12 +89,12 @@
 
         <hr class="mt-4 border-2" />
         <div class="p-4 mt-4 bg-blue-100 rounded-md dark:bg-gray-700">
-            <h2 class="text-xl font-bold text-gray-700 dark:text-gray-100">Comments</h2>
+            <h2 class="text-xl font-bold text-gray-700 dark:text-gray-100">Коментари</h2>
 
             <div class="mt-4">
                 <form method="POST" action="{{ route('post.comment', $post->id, 'comment') }}">
                     @csrf
-                    @if (auth()->user()->banned_to > now('Asia/Yangon'))
+                    @if (auth()->user()->banned_to > now('Europe/Sofia'))
                         <div
                             class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg">
                             You can't comment because your account is banned.
@@ -117,10 +104,12 @@
                             <div class="relative text-gray-500 focus-within:text-purple-600">
                                 <input type="text" name="comment" id="comment"
                                     class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
-                                    placeholder="Write your comment" />
+                                    placeholder="Вашият коментар или въпрос" />
 
                                 <button type="submit"
-                                    class="absolute inset-y-0 right-0 w-24 px-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-r-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">Comment</button>
+                                    class="absolute inset-y-0 right-0 w-24 px-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-r-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                                    Коментирай
+                                </button>
                             </div>
                         </label>
                     @endif
@@ -138,7 +127,7 @@
 
                             <div class="flex flex-row">
                                 <div>
-                                    <img src="{{ $comment->user->profile }}" alt="Avatar"
+                                    <img src="{{ $comment->user->profile }}" alt="{{ $comment->user->full_name }}"
                                         class="w-12 h-12 mr-4 rounded-full">
                                 </div>
                                 <div class="min-w-lg">
@@ -156,7 +145,7 @@
                     @endif
 
                 @empty
-                    <p>No comments yet</p>
+                    <p>Все още няма коментари.</p>
                 @endforelse
             </div>
         </div>

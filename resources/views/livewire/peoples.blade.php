@@ -14,7 +14,7 @@
         ->where('status', 'pending')
         ->get();
     $suggestions = App\Models\User::where('id', '!=', auth()->id())
-        ->where('username', '!=', 'snpoc_admin')
+        ->notInAdmins()
         ->get();
 @endphp
 <div class="container grid px-6 mx-auto">

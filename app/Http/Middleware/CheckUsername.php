@@ -16,8 +16,8 @@ class CheckUsername
     public function handle($request, Closure $next)
     {
 
-        if (Auth::user() && Auth::user()->username == 'snpoc_admin') {
-            return redirect()->route('admin');
+        if (Auth::user() && Auth::user()->isAdmin) {
+            return redirect()->route('home');
         } elseif (Auth::user()) {
             return redirect()->route('home');
         } else {

@@ -4,7 +4,7 @@
     $posts = App\Models\Post::all();
     $channels = App\Models\Page::all();
     $squads = App\Models\Group::all();
-    $banned_users = App\Models\User::where('banned_to', '>', now('Asia/Yangon'))->get();
+    $banned_users = App\Models\User::where('banned_to', '>', now('Europe/Sofia'))->get();
 
     function lineNumber()
     {

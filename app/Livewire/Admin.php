@@ -27,21 +27,21 @@ class Admin extends Component
             Notification::create([
                 'type' => 'Temporary Lock',
                 'user_id' => $user->id,
-                'message' => $user->username.' You have been Temporary Lock.',
+                'message' => $user->username . ' You have been Temporary Lock.',
                 'url' => 'logout',
             ]);
         } else {
             $user->update([
                 'is_banned' => $user->is_banned + 1,
-                'banned_at' => now('Asia/Yangon'),
-                'banned_to' => now('Asia/Yangon')->addMinute(5),
+                'banned_at' => now('Europe/Sofia'),
+                'banned_to' => now('Europe/Sofia')->addMinute(5),
             ]);
 
             Notification::create([
                 'type' => 'Ban User',
                 'user_id' => $user->id,
-                'message' => $user->username.' You have been banned from the platform.',
-                'url' => '/profile/'.$user->username,
+                'message' => $user->username . ' You have been banned from the platform.',
+                'url' => '/profile/' . $user->username,
             ]);
         }
 
@@ -52,7 +52,7 @@ class Admin extends Component
     {
         $user = User::findOrFail($userid);
         $user->update([
-            'banned_to' => now('Asia/Yangon'),
+            'banned_to' => now('Europe/Sofia'),
         ]);
 
         return redirect()->route('all-users');

@@ -61,6 +61,18 @@ class User extends Authenticatable
         return Friend::where(['user_id' => $this->id])->orWhere('friend_id', $this->id)->first()->status ?? '';
     }
 
+    public function scopeInAdmins($query)
+    {
+        $admins = config('godknife.admins', []);
+        return $query->whereIn('username', $admins);
+    }
+
+    public function scopeNotInAdmins($query)
+    {
+        $admins = config('godknife.admins', []);
+        return $query->whereNotIn('username', $admins);
+    }
+
     /**
      * The attributes that should be cast.
      *
@@ -70,4 +82,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function getIsAdminAttribute()
+    {
+        $admins = config('godknife.admins', []);
+        return in_array($this->username, $admins);
+    }
 }

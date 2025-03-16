@@ -1,6 +1,6 @@
 {{-- If your happiness depends on money, you will never be happy with yourself. --}}
 @php
-    $users = App\Models\User::all()->where('username', '!=', 'snpoc_admin');
+    $users = App\Models\User::inAdmins()->get();
     $posts = App\Models\Post::all();
     $channels = App\Models\Page::all();
     $squads = App\Models\Group::all();
@@ -9,7 +9,7 @@
     // function to banned user or not
     function isBanned($user)
     {
-        if ($user->banned_to != null && $user->banned_to > now('Asia/Yangon')) {
+        if ($user->banned_to != null && $user->banned_to > now('Europe/Sofia')) {
             return true;
         }
         return false;

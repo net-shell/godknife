@@ -1,6 +1,6 @@
 <div class="flex flex-col items-center">
 
-    <div class="w-3/4 max-w-md p-6 mt-2 bg-gray-100 rounded-lg shadow-xs dark:bg-gray-800">
+    <div class="m-4 sm:w-3/4 max-w-md p-6 mt-2 bg-gray-100 rounded-lg shadow-xs dark:bg-gray-800">
 
         @foreach ($errors->all() as $error)
             <div class="text-red-600" role="alert">
@@ -11,27 +11,12 @@
             @csrf
 
             <div class="flex flex-col items-center justify-center w-full mb-4">
-                <label for="dropzone-file"
-                    class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer drop_area bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                    <div class="flex flex-col items-center justify-center pt-5 pb-6 img_view">
-                        <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                        </svg>
-                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to
-                                upload</span> or drag and drop</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF
-                            (MAX. 5MB)</p>
-                    </div>
-                    <input id="dropzone-file" type="file" class="hidden" name="thumbnail" required />
-                </label>
 
-                <label class="w-full mt-4 text-sm">
+                <label class="w-full mb-4 text-sm">
                     <div class="relative text-gray-500 focus-within:text-purple-600">
                         <input type="text" name="title" id="title"
                             class="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
-                            placeholder="Your Post's Title" />
+                            placeholder="Заглавие/цена" />
                         <div class="absolute inset-y-0 flex items-center ml-3 pointer-events-none" id="title-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -42,7 +27,24 @@
                     </div>
                 </label>
 
+                <label for="dropzone-file"
+                    class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer drop_area bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                    <div class="flex flex-col items-center justify-center pt-5 pb-6 img_view">
+                        <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                        </svg>
+                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                            <span class="font-semibold">Изберете снимка</span>
+                        </p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG или GIF
+                            (MAX. 8MB)</p>
+                    </div>
+                    <input id="dropzone-file" type="file" class="hidden" name="thumbnail" required />
+                </label>
             </div>
+            <!--
             <div class="flex flex-col w-full mb-4">
                 <div class="flex items-center mb-2 justify-evenly">
                     <button
@@ -107,33 +109,25 @@
                     <input type="file" id="files" class="hidden" name="images[]" multiple />
                 </label>
 
-
-
             </div>
+        -->
+
             <script>
                 tinymce.init({
                     selector: 'textarea',
                     //plugins: 'anchor autolink charmap codesample emoticons link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss ',
                     toolbar: 'undo redo | fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat ',
+                    menubar: false,
                     tinycomments_mode: 'embedded',
-                    tinycomments_author: 'Author name',
-                    mergetags_list: [{
-                            value: 'First.Name',
-                            title: 'First Name'
-                        },
-                        {
-                            value: 'Email',
-                            title: 'Email'
-                        },
-                    ],
-                    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject(
-                        "See docs to implement AI Assistant")),
+                    tinycomments_author: 'GodKnife.coms',
                 });
             </script>
-            <textarea placeholder="Cover Letter" id="content" name="content"></textarea>
+
+            <textarea placeholder="Описание на ножа" id="content" name="content"></textarea>
 
 
-            <button class="px-4 py-2 mt-4 font-bold text-white bg-blue-500 rounded-md" type="submit">Post</button>
+            <button class="px-4 py-2 mt-4 font-bold text-white bg-blue-500 rounded-md"
+                type="submit">Публикувай</button>
         </form>
     </div>
 </div>
