@@ -25,7 +25,7 @@
 </head>
 
 <body>
-    @if (Auth::check() && Auth::user()->isAdmin)
+    @if (Auth::check())
         <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
             @include('layouts.admin-desktop_sidebar')
             <div class="flex flex-col flex-1 w-full">
@@ -77,7 +77,7 @@
                 </main>
             </div>
         </div>
-    @elseif (Auth::check() && Auth::user()->isAdmin && Auth::user()->is_private === 0)
+    @elseif (Auth::check() && Auth::user()->is_private === 0)
         <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
             @include('layouts.desktop_sidebar')
             @include('layouts.mobile_sidebar')
