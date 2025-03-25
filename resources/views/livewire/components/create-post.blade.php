@@ -1,6 +1,6 @@
 <div class="flex flex-col items-center">
 
-    <div class="m-4 sm:w-3/4 max-w-md p-6 mt-2 bg-gray-100 rounded-lg shadow-xs dark:bg-gray-800">
+    <div class="max-w-lg p-6 m-4 mt-2 bg-gray-100 rounded-lg shadow-xs sm:w-3/4 dark:bg-gray-800">
 
         @foreach ($errors->all() as $error)
             <div class="text-red-600" role="alert">
@@ -44,7 +44,6 @@
                     <input id="dropzone-file" type="file" class="hidden" name="thumbnail" required />
                 </label>
             </div>
-            <!--
             <div class="flex flex-col w-full mb-4">
                 <div class="flex items-center mb-2 justify-evenly">
                     <button
@@ -110,20 +109,8 @@
                 </label>
 
             </div>
-        -->
 
-            <script>
-                tinymce.init({
-                    selector: 'textarea',
-                    //plugins: 'anchor autolink charmap codesample emoticons link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss ',
-                    toolbar: 'undo redo | fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat ',
-                    menubar: false,
-                    tinycomments_mode: 'embedded',
-                    tinycomments_author: 'GodKnife.coms',
-                });
-            </script>
-
-            <textarea placeholder="Описание на ножа" id="content" name="content"></textarea>
+            <textarea class="" placeholder="Описание на ножа" id="content" name="content"></textarea>
 
 
             <button class="px-4 py-2 mt-4 font-bold text-white bg-blue-500 rounded-md"

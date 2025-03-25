@@ -56,14 +56,19 @@
                 </div>
             </div>
 
-            @if (auth()->user()->isAdmin)
-                <div class="flex items-center justify-between gap-6">
+            <div class="flex items-center justify-between gap-6">
+                <a href="{{ url('chat', $post->user->id) }}"
+                    class="px-4 py-2 mb-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-blue-500 rounded shadow outline-none active:bg-blue-600 hover:shadow-md focus:outline-none sm:mr-2"
+                    type="button">
+                    Съобщение
+                </a>
+                @if (auth()->user()->isAdmin)
                     <a href="{{ route('delete&ban', $post->uuid) }}"
                         class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-purple">
                         Post Delete and Ban User
                     </a>
-                </div>
-            @endif
+                @endif
+            </div>
         </div>
         <div class="mt-4 dark:text-white">
             {!! $post->content !!}

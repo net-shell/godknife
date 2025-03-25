@@ -148,4 +148,4 @@ Route::get('/', function () {
     return view('welcome');
 })->middleware('check.username');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

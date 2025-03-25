@@ -6,42 +6,27 @@
     }
 @endphp
 
-<div class="flex flex-col p-4 bg-gray-100 rounded-lg shadow-xs dark:bg-gray-800">
+<div class="flex flex-col bg-gray-100 rounded-lg shadow-xs dark:bg-gray-800">
+    <div>
+        <a href="{{ route('post.show', $post->uuid) }}">
+            <img src="{{ asset('images/thumbnails/' . $post->thumbnail) }}" alt="{{ $post->title }}"
+                class="object-cover object-center h-64 w-full h-auto text-center rounded-t-lg">
+        </a>
+    </div>
+
     <div class="flex items-center justify-between">
-        <div class="flex">
-            @if ($post->is_page_post == 1)
-                <img src="{{ 'images/pages/thumbnails/' . $post->page->thumbnail }}" alt="{{ $post->page->name }}"
-                    class="w-12 h-12 mr-4 rounded-full">
-                <div>
-                    <a href="{{ route('channel.show', $post->page->uuid) }}"
-                        class="text-sm font-bold text-gray-700 dark:text-gray-200">
-                        {{ $post->page->name }}
-                    </a>
-                    <p class="text-xs text-gray-600 dark:text-gray-400"> {{ $post->page->members }}
-                        абонати
-                    </p>
-                </div>
-            @else
-                <a href="{{ route('profile.show', $post->user->username) }}">
-                    <img src="{{ $post->user->profile }}"
-                        alt="{{ $post->user->first_name }} {{ $post->user->last_name }}"
-                        class="w-12 h-12 mr-4 rounded-full">
-                </a>
-                <div class="text-sm font-bold text-gray-700 dark:text-gray-200">
-                    <a href="{{ route('profile.show', $post->user->username) }}">
-                        <p>{{ $post->user->full_name }}</p>
-                    </a>
-                    <p class="text-xs text-gray-600 dark:text-gray-400">
-                        {{ $post->created_at->diffForHumans() }}
-                    </p>
-                </div>
-            @endif
+        <div class="px-4 py-2">
+            <a href="{{ route('post.show', $post->uuid) }}">
+                <h2 class="text-lg font-bold text-gray-700 dark:text-gray-100">
+                    {{ $post->title }}
+                </h2>
+            </a>
         </div>
 
-        <div class="inline-flex rounded-lg shadow-sm" role="group">
+        <div class="inline-flex mr-4 rounded-lg shadow-sm" role="group">
             @if (in_array($post->id, $get_saved_posts_id))
                 <a href="{{ route('unsave-post', $post->id) }}"
-                    class="px-2 py-1 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-r-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
+                    class="px-2 py-1 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -50,7 +35,7 @@
                 </a>
             @else
                 <a href="{{ route('save-post', $post->id) }}"
-                    class="px-2 py-1 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-r-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
+                    class="px-2 py-1 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -60,21 +45,49 @@
             @endif
         </div>
     </div>
-    <div class="mt-4">
+
+    <div class="px-4 text-sm text-gray-500">
         <a href="{{ route('post.show', $post->uuid) }}">
-            <h2 class="text-xl font-bold text-gray-700 dark:text-gray-100">
-                {{ $post->title }}
-            </h2>
-        </a>
-    </div>
-    <div class="mt-4">
-        <a href="{{ route('post.show', $post->uuid) }}">
-            <img src="{{ asset('images/thumbnails/' . $post->thumbnail) }}" alt="{{ $post->title }}"
-                class="text-center rounded-lg w-full h-auto">
+            <p>{{ \Illuminate\Support\Str::limit($post->content, 69) }}</p>
         </a>
     </div>
 
-    <div class="flex justify-between h-6">
+
+    <div class="flex px-4 mt-4 mb-2">
+        @if ($post->is_page_post == 1)
+            <img src="{{ 'images/pages/thumbnails/' . $post->page->thumbnail }}" alt="{{ $post->page->name }}"
+                class="w-12 h-12 mr-4 rounded-full">
+            <div>
+                <a href="{{ route('channel.show', $post->page->uuid) }}"
+                    class="text-sm font-bold text-gray-700 dark:text-gray-200">
+                    {{ $post->page->name }}
+                </a>
+                <p class="text-xs text-gray-600 dark:text-gray-400"> {{ $post->page->members }}
+                    абонати
+                </p>
+            </div>
+        @else
+            <a href="{{ route('profile.show', $post->user->username) }}">
+                <img src="{{ $post->user->profile }}"
+                    alt="{{ $post->user->first_name }} {{ $post->user->last_name }}"
+                    class="w-12 h-12 mr-4 rounded-full">
+            </a>
+            <div class="text-sm font-bold text-gray-700 dark:text-gray-200">
+                <a href="{{ route('profile.show', $post->user->username) }}">
+                    <p>{{ $post->user->full_name }}</p>
+                </a>
+                <p class="text-xs text-gray-600 dark:text-gray-400">
+                    {{ $post->created_at->diffForHumans() }}
+                    @if (!empty($post->user->location))
+                        , {{ $post->user->location }}
+                    @endif
+                </p>
+            </div>
+        @endif
+    </div>
+
+    <hr class="mb1-2" />
+    <div class="flex justify-between h-6 px-4">
         <span>
             @if ($post->likes > 0)
                 <span class="text-xs font-bold text-gray-700 dark:text-gray-100">{{ $post->likes }}</span>
@@ -110,7 +123,7 @@
             @endphp
             @if ($like)
                 <a href="{{ route('post.dislike', $post->id, 'dislike') }}"
-                    class="p-4 font-medium text-green-700 rounded  dark:text-red-100">
+                    class="p-4 font-medium text-green-700 rounded dark:text-red-100">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                         stroke="#15803d" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -119,7 +132,7 @@
                 </a>
             @else
                 <a href="{{ route('post.like', $post->id, 'like') }}"
-                    class="p-4 font-medium hover:stroke-green-700 rounded  dark:text-green-100">
+                    class="p-4 font-medium rounded hover:stroke-green-700 dark:text-green-100">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                         stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -131,7 +144,7 @@
         </div>
         <div class="flex items-center justify-center">
             <a href="{{ route('post.show', $post->uuid) }}" class="flex items-center">
-                <span class="p-4 font-medium text-gray-700 rounded  dark:text-gray-100" disabled>
+                <span class="p-4 font-medium text-gray-700 rounded dark:text-gray-100" disabled>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -142,7 +155,7 @@
         </div>
         <div class="flex items-center justify-center ">
             <a href="{{ route('share-post', $post->id) }}"
-                class="p-4 font-medium text-gray-700 rounded  dark:text-gray-100">
+                class="p-4 font-medium text-gray-700 rounded dark:text-gray-100">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round"

@@ -79,27 +79,27 @@
                                     @if ($user->numOfFriends > 0)
                                         <span class="text-sm"> {{ $user->numOfFriends }}
                                             @if ($user->numOfFriends > 1)
-                                                friends
+                                                приятели
                                             @else
-                                                friend
+                                                приятел
                                             @endif
                                         </span> <span class="font-bold">|</span>
                                     @endif
                                     @if ($posts->count() > 0)
                                         <span class="text-sm"> {{ $posts->count() }}
                                             @if ($posts->count() > 1)
-                                                posts
+                                                обяви
                                             @else
-                                                post
+                                                обява
                                             @endif
                                         </span> <span class="font-bold">|</span>
                                     @endif
                                     @if ($numOfComments > 0)
                                         <span class="text-sm"> {{ $numOfComments }}
                                             @if ($numOfComments > 1)
-                                                comments
+                                                коментари
                                             @else
-                                                comment
+                                                коментар
                                             @endif
                                         </span>
                                     @endif
