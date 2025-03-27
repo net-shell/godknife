@@ -3,7 +3,7 @@
 @endphp
 <div class="container grid px-6 mx-auto">
     @if ($posts->count() > 0)
-        <div class="grid gap-6 my-8 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+        <div class="grid gap-6 my-8 grid-cols-1 xl:grid-cols-2">
             <!-- Card -->
             @foreach ($posts as $post)
                 @include('livewire.components.card-post')

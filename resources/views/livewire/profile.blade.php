@@ -276,7 +276,7 @@
     </section>
     <section class="container grid px-6 mx-auto mb-4 -mt-8">
         @if ($posts->count() > 0)
-            <div class="grid gap-6 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+            <div class="grid gap-6 grid-cols-1 xl:grid-cols-2">
                 <!-- Card -->
                 @foreach ($posts as $post)
                     @php
