@@ -288,8 +288,8 @@
         @else
             <div class="flex items-center justify-center h-32">
                 <div class="text-center">
-                    <h1 class="text-2xl font-semibold text-gray-700 dark:text-gray-200">No Posts Found</h1>
-                    <p class="mt-2 text-gray-500 dark:text-gray-300">No posts found. Please check back later.</p>
+                    <h1 class="text-2xl font-semibold text-gray-700 dark:text-gray-200">Няма обяви</h1>
+                    <p class="mt-2 text-gray-500 dark:text-gray-300">Този потребител още не е добавил обяви.</p>
                 </div>
             </div>
         @endif
