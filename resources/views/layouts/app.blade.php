@@ -13,7 +13,7 @@
         rel="stylesheet" />
     <script src="https://cdn.tiny.cloud/1/um58igmni57s76quz66y5o5brcsb3lmjd5uldskd84uzvxxi/tinymce/7/tinymce.min.js"
         referrerpolicy="origin"></script>
-
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <script src="{{ asset('js/init-alpine.js') }}"></script>
     @livewireStyles
     @livewireScripts
@@ -26,50 +26,55 @@
             @include('layouts.partials.admin-desktop_sidebar')
             <div class="flex flex-col flex-1 w-full">
                 @include('layouts.partials.navigation')
-                <main class="h-full overflow-y-auto bg-blue-100 dark:bg-gray-900">
-                    @if (session()->has('success'))
-                        <script>
-                            setTimeout(function() {
-                                document.querySelector('.alert').remove();
-                            }, 5000);
-                        </script>
-                        <div role="alert"
-                            class="absolute z-10 flex items-center w-auto p-2 mb-2 leading-none text-green-100 bg-blue-600 rounded-full alert top-right-5 lg:rounded-full lg:inline-flex">
-                            <span class="flex px-2 py-1 mr-3 text-xs font-bold uppercase bg-blue-500 rounded-full">
-                                Успех
-                            </span>
-                            <span class="flex-auto mr-2 font-semibold text-left">{{ session('success') }}</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                            </svg>
-                        </div>
-                        @php
-                            session()->forget('success');
-                        @endphp
-                    @endif
+                @if (session()->has('success'))
+                    <script>
+                        setTimeout(function() {
+                            document.querySelector('.alert').remove();
+                        }, 5000);
+                    </script>
+                    <div role="alert"
+                        class="absolute z-10 flex items-center w-auto p-2 mb-2 leading-none text-green-100 bg-blue-600 rounded-full alert top-right-5 lg:rounded-full lg:inline-flex">
+                        <span class="flex px-2 py-1 mr-3 text-xs font-bold uppercase bg-blue-500 rounded-full">
+                            Успех
+                        </span>
+                        <span class="flex-auto mr-2 font-semibold text-left">{{ session('success') }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </div>
+                    @php
+                        session()->forget('success');
+                    @endphp
+                @endif
 
-                    @if (session()->has('error'))
-                        <script>
-                            setTimeout(function() {
-                                document.querySelector('.alert').remove();
-                            }, 5000);
-                        </script>
-                        <div role="alert"
-                            class="absolute z-10 flex items-center w-auto p-2 mb-2 leading-none text-red-100 bg-red-800 rounded-full alert top-right-5 lg:rounded-full lg:inline-flex">
-                            <span
-                                class="flex px-2 py-1 mr-3 text-xs font-bold uppercase bg-red-500 rounded-full">ERROR</span>
-                            <span class="flex-auto mr-2 font-semibold text-left">{{ session('error') }}</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                            </svg>
-                        </div>
-                        @php
-                            session()->forget('error');
-                        @endphp
-                    @endif
-                    @yield('content')
+                @if (session()->has('error'))
+                    <script>
+                        setTimeout(function() {
+                            document.querySelector('.alert').remove();
+                        }, 5000);
+                    </script>
+                    <div role="alert"
+                        class="absolute z-10 flex items-center w-auto p-2 mb-2 leading-none text-red-100 bg-red-800 rounded-full alert top-right-5 lg:rounded-full lg:inline-flex">
+                        <span
+                            class="flex px-2 py-1 mr-3 text-xs font-bold uppercase bg-red-500 rounded-full">ERROR</span>
+                        <span class="flex-auto mr-2 font-semibold text-left">{{ session('error') }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </div>
+                    @php
+                        session()->forget('error');
+                    @endphp
+                @endif
+                <main class="h-full flex flex-row justify-between overflow-y-auto bg-blue-100 dark:bg-gray-900">
+                    <div class="flex-1">
+                        @yield('content')
+                    </div>
+                    <div class="">
+                        @include('layouts.partials.contacts_sidebar')
+                    </div>
                 </main>
             </div>
         </div>
@@ -130,7 +135,14 @@
                             session()->forget('error');
                         @endphp
                     @endif
-                    @yield('content')
+                    <div class="flex flex-row">
+                        <div>
+                            @yield('content')
+                        </div>
+                        <div class="flex-1">
+                            @include('layouts.partials.contacts_sidebar')
+                        </div>
+                    </div>
                 </main>
             </div>
         </div>

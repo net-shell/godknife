@@ -26,16 +26,16 @@ class Peoples extends Component
                 'friend_id' => $id,
             ]);
             Notification::create([
-                'type' => 'Friend Request',
+                'type' => 'Покани за приятелство',
                 'user_id' => $id,
-                'message' => auth()->user()->username.' sent you a friend request',
+                'message' => auth()->user()->username . ' ви изпрати покана за приятелство',
                 'url' => '/friends',
             ]);
             DB::commit();
-            session()->flash('success', 'Friend request sent to '.$user->username);
+            session()->flash('success', 'Изпратихте покана за приятелство до ' . $user->username);
         } catch (\Exception $e) {
             DB::rollBack();
-            session()->flash('error', 'Something went wrong');
+            session()->flash('error', 'Нещо се обърка');
             throw $e;
         }
 
@@ -53,10 +53,10 @@ class Peoples extends Component
                 'friend_id' => $id,
             ])->first()->delete();
             DB::commit();
-            session()->flash('success', 'Cancle Friend request sent to '.$user->username);
+            session()->flash('success', 'Отменихте поканата до ' . $user->username);
         } catch (\Exception $e) {
             DB::rollBack();
-            session()->flash('error', 'Something went wrong');
+            session()->flash('error', 'Нещо се обърка');
             throw $e;
         }
 
@@ -77,16 +77,16 @@ class Peoples extends Component
             $req->status = 'accepted';
             $req->save();
             Notification::create([
-                'type' => 'Friend Request Accepted',
+                'type' => 'Приета покана за приятелство',
                 'user_id' => $user->id,
-                'message' => auth()->user()->username.' accepted your friend request',
+                'message' => auth()->user()->username . ' прие поканата ви за приятелство',
                 'url' => '/friends',
             ]);
             DB::commit();
-            session()->flash('success', 'Accept Friend request From '.$user->username);
+            session()->flash('success', 'Вече сте свързани с ' . $user->username);
         } catch (\Exception $e) {
             DB::rollBack();
-            session()->flash('error', 'Something went wrong');
+            session()->flash('error', 'Нещо се обърка');
             throw $e;
         }
 
@@ -106,7 +106,7 @@ class Peoples extends Component
             $req->status = 'rejected';
             $req->save();
             DB::commit();
-            session()->flash('success', 'Reject Friend request From '.$user->username);
+            session()->flash('success', 'Reject Friend request From ' . $user->username);
         } catch (\Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Something went wrong');
@@ -131,7 +131,7 @@ class Peoples extends Component
             $friendship2->delete();
         }
 
-        session()->flash('success', 'You have successfully unfriend '.$user->username);
+        session()->flash('success', 'You have successfully unfriend ' . $user->username);
 
         return redirect()->back();
     }
