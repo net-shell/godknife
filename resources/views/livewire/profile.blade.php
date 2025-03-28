@@ -59,7 +59,7 @@
                                     <a href="{{ route('profile-edit', $user->username, 'edit') }}"
                                         class="px-4 py-2 mb-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-blue-500 rounded shadow outline-none active:bg-blue-600 hover:shadow-md focus:outline-none sm:mr-2"
                                         type="button">
-                                        Редакция на профила
+                                        Редактиране на профила
                                     </a>
                                 @else
                                     <a href="{{ url('chat', $user->id) }}"
@@ -127,7 +127,7 @@
                     <div class="w-full p-4 lg:w-40">
                         <div
                             class="w-full mx-auto overflow-hidden bg-gray-100 rounded-lg shadow-md h-106 dark:bg-gray-800 dark:text-gray-200">
-                            <div class="p-6 text-2xl font-semibold">Friends ({{ $user->numOfFriends }})</div>
+                            <div class="p-6 text-2xl font-semibold">Приятели ({{ $user->numOfFriends }})</div>
                             <div class="grid grid-cols-3 gap-6 p-6 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3">
                                 @foreach ($friends as $friend)
                                     @php
@@ -164,7 +164,7 @@
                         <div
                             class="w-full mx-auto overflow-hidden bg-gray-100 rounded-lg shadow-md h-106 dark:bg-gray-800 dark:text-gray-200">
                             <div class="flex justify-between p-6 text-2xl font-semibold">
-                                <p>About</p>
+                                <p>Относно</p>
                             </div>
                             <div
                                 class="p-6 m-6 overflow-hidden bg-blue-100 rounded-lg shadow-md dark:bg-gray-700 dark:text-gray-200">
@@ -289,7 +289,7 @@
             <div class="flex items-center justify-center h-32">
                 <div class="text-center">
                     <h1 class="text-2xl font-semibold text-gray-700 dark:text-gray-200">Няма обяви</h1>
-                    <p class="mt-2 text-gray-500 dark:text-gray-300">Този потребител още не е добавил обяви.</p>
+                    <p class="mt-2 text-gray-500 dark:text-gray-300">Този потребител все още не е добавил обяви.</p>
                 </div>
             </div>
         @endif

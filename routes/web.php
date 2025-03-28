@@ -55,7 +55,6 @@ Route::middleware(['auth', 'verified', 'VerifiedUser'])->group(function () {
     Route::post('/createpost', [CreatePost::class, 'createpost'])->name('createpost');
 
     // post
-    Route::get('/post/{post:uuid}', ShowPost::class)->name('post.show');
     Route::get('/post/{post:id}/like', [Home::class, 'like'])->name('post.like');
     Route::get('/post/{post:id}/dislike', [Home::class, 'dislike'])->name('post.dislike');
     Route::post('/post/{post:id}/comment', [ShowPost::class, 'saveComment'])->name('post.comment');
@@ -127,8 +126,10 @@ Route::middleware(['auth', 'verified', 'VerifiedUser'])->group(function () {
     })->name('logout');
 });
 
-// Route::get('/', Home::class)->middleware(['auth', 'verified', 'VerifiedUser']);
-// Route::get('/create-post', CreatePost::class)->middleware(['auth', 'verified', 'VerifiedUser']);
+Route::middleware('guest')->group(function () {
+    Route::get('/share/{post:uuid}', ShowPost::class)->name('share.post');
+});
+Route::get('/post/{post:uuid}', ShowPost::class)->name('post.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

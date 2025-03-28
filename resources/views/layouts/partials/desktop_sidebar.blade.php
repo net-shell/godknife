@@ -18,7 +18,7 @@
         <a href="{{ url('/') }}" class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
             {{ env('APP_NAME') }}
         </a>
-        @include('layouts.nav-items')
+        @include('layouts.partials.nav-items')
     </div>
 </aside>
 <script>

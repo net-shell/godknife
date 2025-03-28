@@ -21,7 +21,7 @@
                 </div>
                 <input
                     class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-gray-100 focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                    type="text" placeholder="Search for posts with title" aria-label="Search" />
+                    type="text" placeholder="Търсене в обявите" aria-label="Search" />
             </div>
         </div>
         <ul class="flex items-center flex-shrink-0 space-x-6">
@@ -65,8 +65,7 @@
                 <button class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
                     @click="toggleProfileMenu" @keydown.escape="closeProfileMenu" aria-label="Account"
                     aria-haspopup="true">
-                    <img class="object-cover w-8 h-8 rounded-full"
-                        src="{{ auth()->user()->profile ? asset(auth()->user()->profile) : 'https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=aa3a807e1bbdfd4364d1f449eaa96d82' }}"
+                    <img class="object-cover w-8 h-8 rounded-full" src="{{ asset(auth()->user()->profile) }}"
                         alt="" aria-hidden="true" />
                 </button>
                 <template x-if="isProfileMenuOpen">

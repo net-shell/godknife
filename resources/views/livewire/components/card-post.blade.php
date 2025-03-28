@@ -99,11 +99,20 @@
                     @endphp
                     @if ($like)
                         <a href="{{ route('post.dislike', $post->id, 'dislike') }}"
-                            class="p-4 font-medium text-green-700 rounded dark:text-red-100">
-                            <svg class="w-6 h-6" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M8.1 20.5c0 1.5 1.482 2.5 2.64 2.5.806 0 .869-.613.993-1.82.055-.53.121-1.174.267-1.93.386-2.002 1.72-4.56 2.996-5.325V8C15 5.75 14.25 5 11 5H7.227C5.051 5 4.524 6.432 4.328 6.964A15.85 15.85 0 0 1 4.315 7c-.114.306-.358.546-.638.82-.31.306-.664.653-.927 1.18-.311.623-.27 1.177-.233 1.67.023.299.044.575-.017.83-.064.27-.146.475-.225.671-.143.356-.275.686-.275 1.329 0 1.5.748 2.498 2.315 2.498H8.5S8.1 19 8.1 20.5zM18.5 15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-3 0v7a1.5 1.5 0 0 0 1.5 1.5z"
-                                    fill="currentColor" />
+                            class="p-4 font-medium rounded dark:text-red-100">
+                            <svg class="w-6 h-6" stroke="currentColor" viewBox="0 -0.5 21 21" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g stroke-width="1" fill="currentColor" fill-rule="evenodd">
+                                    <g id="Dribbble-Light-Preview" transform="translate(-219.000000, -760.000000)">
+                                        <g id="icons" transform="translate(56.000000, 160.000000)">
+                                            <path
+                                                d="M163,610.021159 L163,618.021159 C163,619.126159 163.93975,620.000159 165.1,620.000159 L167.199999,620.000159 L167.199999,608.000159 L165.1,608.000159 C163.93975,608.000159 163,608.916159 163,610.021159 M183.925446,611.355159 L182.100546,617.890159 C181.800246,619.131159 180.639996,620.000159 179.302297,620.000159 L169.299999,620.000159 L169.299999,608.021159 L171.104948,601.826159 C171.318098,600.509159 172.754498,599.625159 174.209798,600.157159 C175.080247,600.476159 175.599997,601.339159 175.599997,602.228159 L175.599997,607.021159 C175.599997,607.573159 176.070397,608.000159 176.649997,608.000159 L181.127196,608.000159 C182.974146,608.000159 184.340196,609.642159 183.925446,611.355159"
+                                                id="like-[#1386]">
+
+                                            </path>
+                                        </g>
+                                    </g>
+                                </g>
                             </svg>
                         </a>
                     @else
@@ -127,7 +136,7 @@
                     @endif
                     <span title="харесвания" class="flex-1">
                         @if ($post->likes > 0)
-                            <span class="text-xs font-bold text-gray-700 dark:text-gray-100">{{ $post->likes }}</span>
+                            <span class="text-xs font-bold text-gray-700 dark:text-gray-100">харесвания</span>
                         @endif
                     </span>
                 </div>
@@ -143,8 +152,7 @@
                     </a>
                     <span title="коментара">
                         @if ($post->comments > 0)
-                            <span
-                                class="text-xs font-bold text-gray-700 dark:text-gray-100">{{ $post->comments }}</span>
+                            <span class="text-xs font-bold text-gray-700 dark:text-gray-100">коментара</span>
                         @endif
                     </span>
                 </div>
@@ -159,7 +167,7 @@
                     </a>
                     <span title="споделяния" class="flex-1">
                         @if ($post->shares > 0)
-                            <span class="text-xs font-bold text-gray-700 dark:text-gray-100">{{ $post->shares }}</span>
+                            <span class="text-xs font-bold text-gray-700 dark:text-gray-100">споделяния</span>
                         @endif
                     </span>
                 </div>

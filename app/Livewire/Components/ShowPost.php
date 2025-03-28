@@ -15,7 +15,8 @@ class ShowPost extends Component
 {
     public function render()
     {
-        return view('livewire.components.show-post')->extends('layouts.app');
+        $layout = auth()->check() ? 'layouts.app' : 'layouts.public';
+        return view('livewire.components.show-post')->extends($layout);
     }
 
     public function saveComment($post_id, Request $request)

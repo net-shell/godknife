@@ -25,8 +25,17 @@
 </head>
 
 <body>
-    <div class="bg-gk-dark">
+    <main class="z-0">
         @yield('content')
+    </main>
+
+    <div class="fixed w-full h-full bg-black opacity-90 top-0 left-0 z-10"></div>
+    <div class="fixed w-full h-full top-0 left-0 z-20">
+        <div class="container flex flex-row items-center justify-center h-screen px-6 mx-auto">
+            <div class="mb-4 text-center text-white">
+                @include('auth.partials.login')
+            </div>
+        </div>
     </div>
 </body>
 

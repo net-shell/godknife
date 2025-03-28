@@ -4,43 +4,13 @@
     $post = App\Models\Post::where('uuid', $uuid)->first();
 @endphp
 <div class="flex flex-row justify-center">
-    <script>
-        function openModal(title) {
-            document.getElementById('modal').classList.remove('hidden');
-            document.getElementById('modal').classList.add('flex');
-            document.getElementById('modal-title').innerHTML = title;
-        }
-
-        function closeModal() {
-            document.getElementById('modal').classList.remove('flex');
-            document.getElementById('modal').classList.add('hidden');
-        }
-    </script>
-    <div id="modal"
-        class="absolute z-10 flex-col justify-around hidden w-1/4 px-4 py-4 text-gray-700 bg-red-100 border-t-8 border-red-600 rounded-b-lg shadow-md center-absolute dark:bg-white dark:text-gray-700">
-        <div class="flex flex-col items-center justify-center">
-            <img src="{{ asset('images/website/trash_bin.gif') }}" alt="" width="100px">
-            <h2 class="mt-2 text-lg font-bold text-center">Are you sure to delete <span id="modal-title"></span> ?</h2>
-            <div class="flex justify-between gap-6 mt-2">
-                <a href="{{ route('post.delete', $uuid, 'delete') }}"
-                    class="px-4 py-2 mb-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-red-600 rounded shadow outline-none active:bg-red-600 hover:shadow-md focus:outline-none sm:mr-2"
-                    type="button">
-                    Delete
-                </a>
-                <button
-                    class="px-4 py-2 mb-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-gray-600 rounded shadow outline-none active:bg-gray-600 hover:shadow-md focus:outline-none sm:mr-2"
-                    type="button" onclick="closeModal()">
-                    Cancle
-                </button>
-            </div>
+    <div class="w-3/4 max-w-xl p-6 mt-2 mb-2 bg-gray-100 rounded-lg shadow-xs dark:bg-gray-800">
+        <div class="mb-2">
+            <img class="rounded-lg" src="{{ asset('images/thumbnails/' . $post->thumbnail) }}">
         </div>
-    </div>
-
-    <div class="w-3/4 max-w-md p-6 mt-2 mb-2 bg-gray-100 rounded-lg shadow-xs dark:bg-gray-800">
-        <div style="background-image: url({{ asset('images/thumbnails/' . $post->thumbnail) }}); background-size: contain; background-position: center; background-repeat: no-repeat;"
-            class="flex items-center justify-center rounded-lg min-h-xs">
-        </div>
-        <h1 class="text-3xl font-bold text-white">{{ $post->title }}</h1>
+        <h1 class="text-3xl font-bold text-black dark:text-white">
+            {{ $post->title }}
+        </h1>
         <div class="flex justify-between mt-4 text-gray-700 dark:text-gray-100">
             <div class="flex">
                 <div>
@@ -62,12 +32,6 @@
                     type="button">
                     Съобщение
                 </a>
-                @if (auth()->user()->isAdmin)
-                    <a href="{{ route('delete&ban', $post->uuid) }}"
-                        class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-purple">
-                        Post Delete and Ban User
-                    </a>
-                @endif
             </div>
         </div>
         <div class="mt-4 dark:text-white">
@@ -91,68 +55,79 @@
             </div>
         @endif
 
-
-        <hr class="mt-4 border-2" />
+        @php
+            $commentsQuery = App\Models\Comment::with('post');
+            $comments = $commentsQuery->get('*');
+        @endphp
         <div class="p-4 mt-4 bg-blue-100 rounded-md dark:bg-gray-700">
-            <h2 class="text-xl font-bold text-gray-700 dark:text-gray-100">Коментари</h2>
-
-            <div class="mt-4">
-                <form method="POST" action="{{ route('post.comment', $post->id, 'comment') }}">
-                    @csrf
-                    @if (auth()->user()->banned_to > now('Europe/Sofia'))
-                        <div
-                            class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg">
-                            You can't comment because your account is banned.
-                        </div>
-                    @else
-                        <label class="w-full mt-4 text-sm">
-                            <div class="relative text-gray-500 focus-within:text-purple-600">
-                                <input type="text" name="comment" id="comment"
-                                    class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
-                                    placeholder="Вашият коментар или въпрос" />
-
-                                <button type="submit"
-                                    class="absolute inset-y-0 right-0 w-24 px-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-r-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
-                                    Коментирай
-                                </button>
+            <h2 class="text-xl font-bold text-gray-700 dark:text-gray-100">
+                Коментари
+                <span class="text-sm font-bold text-gray-500 dark:text-gray-400">
+                    ({{ $commentsQuery->count() ?? 0 }})
+                </span>
+            </h2>
+            @if (auth()->check())
+                <div class="mt-4">
+                    <form method="POST" action="{{ route('post.comment', $post->id, 'comment') }}">
+                        @csrf
+                        @if (auth()->user()?->banned_to > now('Europe/Sofia'))
+                            <div
+                                class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg">
+                                You can't comment because your account is banned.
                             </div>
-                        </label>
-                    @endif
-                </form>
-            </div>
+                        @else
+                            <label class="w-full mt-4 text-sm">
+                                <div class="relative text-gray-500 focus-within:text-orange-600">
+                                    <input type="text" name="comment" id="comment"
+                                        class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-orange-500 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
+                                        placeholder="Вашият коментар или въпрос" />
 
-            <div class="mt-4">
-                @php
-                    $comments = App\Models\Comment::with('post')->get('*');
-                @endphp
-                @forelse ($comments as $comment)
-                    @if ($comment->post_id == $post->id)
-                        <div
-                            class="flex flex-col p-4 mt-4 text-gray-700 bg-gray-100 rounded-lg dark:text-gray-100 dark:bg-gray-900">
-
-                            <div class="flex flex-row">
-                                <div>
-                                    <img src="{{ $comment->user->profile }}" alt="{{ $comment->user->full_name }}"
-                                        class="w-12 h-12 mr-4 rounded-full">
+                                    <button type="submit"
+                                        class="absolute inset-y-0 right-0 w-24 px-4 text-sm flex justify-center items-center font-medium leading-5 text-white transition-colors duration-150 bg-white border border-transparent rounded-r-md active:bg-black hover:bg-gray-700 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="black" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+                                        </svg>
+                                    </button>
                                 </div>
-                                <div class="min-w-lg">
-                                    <span class="text-sm font-bold">By <a
-                                            href="{{ route('profile.show', $comment->user->username) }}">{{ '@' . $comment->user->username }}</a></span><br>
-                                    <span class="text-sm font-bold">at
-                                        {{ $comment->created_at->diffForHumans() }}</span>
+                            </label>
+                        @endif
+                    </form>
+                </div>
 
+                <div class="mt-4">
+                    @forelse ($comments as $comment)
+                        @if ($comment->post_id == $post->id)
+                            <div
+                                class="flex flex-col p-4 mt-4 text-gray-700 bg-gray-100 rounded-lg dark:text-gray-100 dark:bg-gray-900">
+
+                                <div class="flex flex-row">
+                                    <div>
+                                        <img src="{{ $comment->user->profile }}" alt="{{ $comment->user->full_name }}"
+                                            class="w-12 h-12 mr-4 rounded-full">
+                                    </div>
+                                    <div class="min-w-lg">
+                                        <span class="text-sm font-bold">By <a
+                                                href="{{ route('profile.show', $comment->user->username) }}">{{ '@' . $comment->user->username }}</a></span><br>
+                                        <span class="text-sm font-bold">at
+                                            {{ $comment->created_at->diffForHumans() }}</span>
+
+                                    </div>
+                                </div>
+                                <div class="p-4 mt-4 border rounded-lg dark:text-gray-100 dark:bg-gray-800">
+                                    <p>{{ $comment->comment }}</p>
                                 </div>
                             </div>
-                            <div class="p-4 mt-4 border rounded-lg dark:text-gray-100 dark:bg-gray-800">
-                                <p>{{ $comment->comment }}</p>
-                            </div>
-                        </div>
-                    @endif
+                        @endif
 
-                @empty
-                    <p>Все още няма коментари.</p>
-                @endforelse
-            </div>
+                    @empty
+                        <p class="text-gray-500">
+                            Все още няма коментари.
+                        </p>
+                    @endforelse
+                </div>
+            @endif
         </div>
     </div>
 </div>

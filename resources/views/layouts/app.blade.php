@@ -7,29 +7,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'GodKnife') }}</title>
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('css/tailwind.output.css') }}" />
     <script src="https://cdn.tiny.cloud/1/um58igmni57s76quz66y5o5brcsb3lmjd5uldskd84uzvxxi/tinymce/7/tinymce.min.js"
         referrerpolicy="origin"></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
-    <script src="{{ asset('js/charts-lines.js') }}" defer></script>
 
     <script src="{{ asset('js/init-alpine.js') }}"></script>
     @livewireStyles
     @livewireScripts
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
     @if (Auth::check())
         <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
-            @include('layouts.admin-desktop_sidebar')
+            @include('layouts.partials.admin-desktop_sidebar')
             <div class="flex flex-col flex-1 w-full">
-                @include('layouts.navigation')
+                @include('layouts.partials.navigation')
                 <main class="h-full overflow-y-auto bg-blue-100 dark:bg-gray-900">
                     @if (session()->has('success'))
                         <script>
