@@ -40,7 +40,7 @@
             </svg>
         </div>
     </section>
-    <section class="relative py-16 bg-gray-200">
+    <section class="relative pt-16">
         <div class="container px-4 mx-auto">
             <div
                 class="relative flex flex-col w-full min-w-0 mb-6 -mt-48 break-words bg-teal-100 rounded-lg shadow-xl dark:bg-gray-800 dark:text-gray-200">
@@ -107,7 +107,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="py-6 mt-10 text-center border-t border-black dark:border-white">
+                    <div class="py-6 mt-4 text-center border-t border-black dark:border-white">
                         <div class="flex flex-wrap justify-center">
                             <div class="w-full px-4 lg:w-9/12">
                                 @if ($user->description)
@@ -121,53 +121,16 @@
                 </div>
             </div>
         </div>
-        @if (!$user->isAdmin)
-            <div class="container px-2">
-                <div class="flex flex-wrap">
-                    <div class="w-full p-4 lg:w-40">
+    </section>
+
+    <div class="flex flex-row">
+        <section class="lg:w-1/2">
+            @if (!$user->isAdmin)
+                <div class="flex flex-wrap flex-col">
+                    <div class="w-full p-4 md:flex-cols">
                         <div
-                            class="w-full mx-auto overflow-hidden bg-gray-100 rounded-lg shadow-md h-106 dark:bg-gray-800 dark:text-gray-200">
-                            <div class="p-6 text-2xl font-semibold">Приятели ({{ $user->numOfFriends }})</div>
-                            <div class="grid grid-cols-3 gap-6 p-6 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3">
-                                @foreach ($friends as $friend)
-                                    @php
-                                        $friend = App\Models\User::find($friend->friend_id);
-                                    @endphp
-                                    <div
-                                        class="overflow-hidden border border-black rounded-lg max-h-sm dark:border-white">
-                                        <img class="object-cover h-24 min-w-full" src="{{ $friend->profile }}"
-                                            alt="">
-                                        <div class="py-2 text-center">
-                                            <a href="{{ route('profile.show', $friend->username) }}"
-                                                class="text-xs font-semibold">{{ $friend->username }}</a>
-                                        </div>
-                                    </div>
-                                @endforeach
-                                @foreach ($get_friends as $friend)
-                                    @php
-                                        $friend = App\Models\User::find($friend->user_id);
-                                    @endphp
-                                    <div
-                                        class="overflow-hidden border border-black rounded-lg max-h-sm dark:border-white">
-                                        <img class="object-cover h-24 min-w-full" src="{{ $friend->profile }}"
-                                            alt="">
-                                        <div class="py-2 text-center">
-                                            <a href="{{ route('profile.show', $friend->username) }}"
-                                                class="text-xs font-semibold">{{ $friend->username }}</a>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w-full p-4 md:flex-cols lg:w-60">
-                        <div
-                            class="w-full mx-auto overflow-hidden bg-gray-100 rounded-lg shadow-md h-106 dark:bg-gray-800 dark:text-gray-200">
-                            <div class="flex justify-between p-6 text-2xl font-semibold">
-                                <p>Относно</p>
-                            </div>
-                            <div
-                                class="p-6 m-6 overflow-hidden bg-blue-100 rounded-lg shadow-md dark:bg-gray-700 dark:text-gray-200">
+                            class="w-full mx-auto overflow-hidden bg-gray-100 rounded-lg shadow-md dark:bg-gray-800 dark:text-gray-200">
+                            <div>
                                 @if ($user->school)
                                     <div class="flex mb-2">
                                         <span>
@@ -208,9 +171,8 @@
                                 @if ($user->work)
                                     <div class="flex mb-2">
                                         <span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                class="w-6 h-6">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z" />
                                             </svg>
@@ -221,9 +183,8 @@
                                 @if ($user->website)
                                     <div class="flex mb-2">
                                         <span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                class="w-6 h-6">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
                                             </svg>
@@ -266,32 +227,68 @@
                                     </div>
                                 @endif
                             </div>
+                        </div>
+                    </div>
 
+                    <div class="w-full p-4">
+                        <div
+                            class="w-full mx-auto overflow-hidden bg-gray-100 rounded-lg shadow-md h-106 dark:bg-gray-800 dark:text-gray-200">
+                            <div class="p-6 text-2xl font-semibold">Приятели ({{ $user->numOfFriends }})</div>
+                            <div class="grid grid-cols-3 gap-6 p-6 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3">
+                                @foreach ($friends as $friend)
+                                    @php
+                                        $friend = App\Models\User::find($friend->friend_id);
+                                    @endphp
+                                    <div
+                                        class="overflow-hidden border border-black rounded-lg max-h-sm dark:border-white">
+                                        <img class="object-cover h-24 min-w-full" src="{{ $friend->profile }}"
+                                            alt="">
+                                        <div class="py-2 text-center">
+                                            <a href="{{ route('profile.show', $friend->username) }}"
+                                                class="text-xs font-semibold">{{ $friend->username }}</a>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                @foreach ($get_friends as $friend)
+                                    @php
+                                        $friend = App\Models\User::find($friend->user_id);
+                                    @endphp
+                                    <div
+                                        class="overflow-hidden border border-black rounded-lg max-h-sm dark:border-white">
+                                        <img class="object-cover h-24 min-w-full" src="{{ $friend->profile }}"
+                                            alt="">
+                                        <div class="py-2 text-center">
+                                            <a href="{{ route('profile.show', $friend->username) }}"
+                                                class="text-xs font-semibold">{{ $friend->username }}</a>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        @endif
-
-    </section>
-    <section class="container grid px-6 mx-auto mb-4 -mt-8">
-        @if ($posts->count() > 0)
-            <div class="grid gap-6 grid-cols-1 xl:grid-cols-2">
-                <!-- Card -->
-                @foreach ($posts as $post)
-                    @php
-                        $title = $post->title;
-                    @endphp
-                    @include('livewire.components.card-post')
-                @endforeach
-            </div>
-        @else
-            <div class="flex items-center justify-center h-32">
-                <div class="text-center">
-                    <h1 class="text-2xl font-semibold text-gray-700 dark:text-gray-200">Няма обяви</h1>
-                    <p class="mt-2 text-gray-500 dark:text-gray-300">Този потребител все още не е добавил обяви.</p>
+            @endif
+        </section>
+        <section class="flex lg:w-1/2 flex-cols">
+            @if ($posts->count() > 0)
+                <div class="flex flex-col justify-center gap-4">
+                    <!-- Card -->
+                    @foreach ($posts as $post)
+                        @php
+                            $title = $post->title;
+                        @endphp
+                        @include('livewire.components.card-post')
+                    @endforeach
                 </div>
-            </div>
-        @endif
-    </section>
+            @else
+                <div class="flex items-center justify-center h-32">
+                    <div class="text-center">
+                        <h1 class="text-2xl font-semibold text-gray-700 dark:text-gray-200">Няма обяви</h1>
+                        <p class="mt-2 text-gray-500 dark:text-gray-300">Този потребител все още не е добавил обяви.
+                        </p>
+                    </div>
+                </div>
+            @endif
+        </section>
+    </div>
 </main>

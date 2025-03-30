@@ -7,9 +7,9 @@ use App\Models\Post;
 use App\Models\PostMedia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Services\SlugService;
 
 class CreatePost extends Component
 {
@@ -42,12 +42,12 @@ class CreatePost extends Component
         DB::beginTransaction();
         try {
 
-            $thumbnail = time().'.'.$request->thumbnail->extension();
+            $thumbnail = time() . '.' . $request->thumbnail->extension();
             $path = public_path('images/thumbnails');
             $request->thumbnail->move($path, $thumbnail);
 
             $post = Post::create([
-                'uuid' => Str::uuid(),
+                'uuid' => SlugService::generateSlug(time()),
                 'user_id' => auth()->id(),
                 'content' => wrapInputWithDiv($request->content),
                 'title' => $request->title,
@@ -57,7 +57,7 @@ class CreatePost extends Component
             $images = [];
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
-                    $imageName = time().'_'.$image->getClientOriginalName();
+                    $imageName = time() . '_' . $image->getClientOriginalName();
                     $path = public_path('images/posts');
                     $image->move($path, $imageName);
                     $images[] = $imageName;
@@ -78,8 +78,8 @@ class CreatePost extends Component
                     Notification::create([
                         'type' => 'Admin Notification',
                         'user_id' => 8,
-                        'message' => auth()->user()->username.' Post created with '.$content,
-                        'url' => '/post/'.$post->uuid,
+                        'message' => auth()->user()->username . ' Post created with ' . $content,
+                        'url' => '/post/' . $post->uuid,
                     ]);
                 }
             }

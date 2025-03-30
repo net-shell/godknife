@@ -36,7 +36,7 @@ class GoogleController extends Controller
                         'email' => $user->email,
                     ],
                     [
-                        'uuid' => \Str::uuid(),
+                        'uuid' => \App\Services\SlugService::generateSlug(),
                         'first_name' => $first_name,
                         'last_name' => $last_name,
                         'username' => $username,

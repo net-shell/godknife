@@ -2,14 +2,14 @@
 
 namespace App\Services;
 
-use Sqids\Sqids;
+use Str;
 
 class SlugService
 {
     public static function generateSlug()
     {
-        $sqids = new Sqids();
-        $uuid = Str::uuid();
-        return $sqids->encode($uuid);
+        $uuid = explode('-', Str::uuid());
+        $uuid = $uuid[0] . array_pop($uuid);
+        return $uuid;
     }
 }
